@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 # Inventory
 Employee Complains to the Hr and the team lead
@@ -5,3 +6,7 @@ Employee Complains to the Hr and the team lead
 # Inventory_1
 Inventory
 
+=======
+# inventory_odata
+odata creation for the inventory project
+>>>>>>> refs/heads/master
