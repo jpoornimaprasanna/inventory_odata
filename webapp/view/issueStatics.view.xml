@@ -1,0 +1,105 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="inventory.Inventory.controller.issueStatics"
+	xmlns:html="http://www.w3.org/1999/xhtml" xmlns:layout="sap.ui.layout" xmlns:tnt="sap.tnt" xmlns:viz.data="sap.viz.ui5.data"
+	xmlns:viz.feeds="sap.viz.ui5.controls.common.feeds" xmlns:chart="sap.suite.ui.commons" xmlns:viz="sap.viz.ui5.controls">
+	<tnt:ToolHeader>
+		<Image src="http://1.bp.blogspot.com/-GBhaM8-qOxM/VOIzf8pwwDI/AAAAAAAAABQ/DktIHaplSrc/s1600/banner.png" width="100px" height="50px"/>
+		<ToolbarSpacer>
+			<layoutData>
+				<OverflowToolbarLayoutData priority="NeverOverflow" minWidth="10px"/>
+			</layoutData>
+		</ToolbarSpacer>
+		<tnt:ToolHeaderUtilitySeparator/>
+		<ToolbarSpacer>
+			<layoutData>
+				<OverflowToolbarLayoutData priority="NeverOverflow" minWidth="20px"/>
+			</layoutData>
+		</ToolbarSpacer>
+		<Button icon="sap-icon://log" type="Transparent" press="onLogout">
+			<layoutData>
+				<OverflowToolbarLayoutData priority="NeverOverflow"/>
+			</layoutData>
+		</Button>
+	</tnt:ToolHeader>
+	<SplitApp>
+		<detailPages>
+			<chart:ChartContainer id="chartContainer" showFullScreen="true" autoAdjustHeight="true" title="Issue Graph">
+				<chart:content>
+					<chart:ChartContainerContent icon="sap-icon://line-chart" title="Line Chart">
+						<chart:content>
+							<viz:VizFrame id="idVizFrame" height='300px' width="50%" vizType='line' vizProperties="{title:{visible:false}}">
+								<viz:dataset>
+									<viz.data:FlattenedDataset id="issueFragment" data="">
+										<viz.data:dimensions>
+											<viz.data:DimensionDefinition name="Data" value="{data>month}"/>
+										</viz.data:dimensions>
+										<viz.data:measures>
+											<viz.data:MeasureDefinition name="Ticket" value="{data>ticket}"/>
+										</viz.data:measures>
+									</viz.data:FlattenedDataset>
+								</viz:dataset>
+								<viz:feeds>
+									<viz.feeds:FeedItem id='valueAxisFeed' uid="valueAxis" type="Measure" values="Ticket"/>
+									<viz.feeds:FeedItem id='categoryAxisFeed' uid="categoryAxis" type="Dimension" values="Data"/>
+								</viz:feeds>
+							</viz:VizFrame>
+						</chart:content>
+					</chart:ChartContainerContent>
+				</chart:content>
+			</chart:ChartContainer>
+		</detailPages>
+		<masterPages>
+			<Page>
+				<content>
+					<ComboBox change="oChangeYearOrMonth" placeholder="Year/Month" class="sapUiLargeMargin" id="idData">
+						<items>
+							<core:Item text="Year"/>
+							<core:Item text="Month"/>
+						</items>
+					</ComboBox>
+					<ComboBox change="sorter" placeholder="Select Year" class="sapUiLargeMargin" visible="false" id="idYear">
+						<items>
+							<core:Item text="2018"/>
+							<core:Item text="2017"/>
+						</items>
+					</ComboBox>
+					<ComboBox change="sorter" placeholder="Select Month" class="sapUiLargeMargin" visible="false" id="idMonth">
+						<items>
+							<core:Item text="Jan"/>
+							<core:Item text="Feb"/>
+							<core:Item text="Mar"/>
+							<core:Item text="Apr"/>
+							<core:Item text="May"/>
+							<core:Item text="Jun"/>
+							<core:Item text="Jul"/>
+							<core:Item text="Aug"/>
+							<core:Item text="Sep"/>
+							<core:Item text="Oct"/>
+							<core:Item text="Nov"/>
+							<core:Item text="Dec"/>
+						</items>
+					</ComboBox>
+					<ComboBox change="sorter" placeholder="Select Status" class="sapUiLargeMargin" id="idStatus" visible="false">
+						<items>
+							<core:Item text="Approved"/>
+							<core:Item text="Rejected"/>
+						</items>
+					</ComboBox>
+					<ComboBox change="chartType" value="line" class="sapUiLargeMargin" id="idChartType">
+						<items>
+							<core:Item text="line"/>
+							<core:Item text="pie"/>
+							<core:Item text="bar"/>
+							<core:Item text="column"/>
+						</items>
+					</ComboBox>
+				</content>
+				<footer>
+					<Toolbar class="bFooter">
+						<ToolbarSpacer/>
+						<Button text="Submit" press="oSubmitPress"></Button>
+					</Toolbar>
+				</footer>
+			</Page>
+		</masterPages>
+	</SplitApp>
+</mvc:View>

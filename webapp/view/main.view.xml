@@ -1,0 +1,77 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="inventory.Inventory.controller.main"
+	xmlns:html="http://www.w3.org/1999/xhtml" xmlns:tnt="sap.tnt" xmlns:o="sap.uxap" xmlns:layout="sap.ui.layout" xmlns:forms="sap.ui.layout.form">
+	<tnt:ToolHeader>
+		<Image src="http://1.bp.blogspot.com/-GBhaM8-qOxM/VOIzf8pwwDI/AAAAAAAAABQ/DktIHaplSrc/s1600/banner.png" width="100px" height="50px"/>
+		<ToolbarSpacer>
+			<layoutData>
+				<OverflowToolbarLayoutData priority="NeverOverflow" minWidth="10px"/>
+			</layoutData>
+		</ToolbarSpacer>
+		<Button text="{i18n>employee}" type="Transparent">
+			<layoutData>
+				<OverflowToolbarLayoutData priority="Low"/>
+			</layoutData>
+		</Button>
+		<tnt:ToolHeaderUtilitySeparator/>
+		<ToolbarSpacer>
+			<layoutData>
+				<OverflowToolbarLayoutData priority="NeverOverflow" minWidth="20px"/>
+			</layoutData>
+		</ToolbarSpacer>
+		<Button icon="sap-icon://log" type="Transparent" press="onLogout">
+			<layoutData>
+				<OverflowToolbarLayoutData priority="NeverOverflow"/>
+			</layoutData>
+		</Button>
+	</tnt:ToolHeader>
+	<Page showHeader="false">
+		<content>
+			<o:ObjectPageLayout >
+				<o:headerTitle>
+					<o:ObjectPageHeader objectImageURI="{image}" objectTitle="{name}" objectImageShape="Circle" objectImageAlt="{name}"
+						isObjectIconAlwaysVisible="true" objectSubtitle="{designation}">
+					</o:ObjectPageHeader>
+				</o:headerTitle>
+				<o:headerContent>
+					<layout:VerticalLayout>
+						<Label text="6746536456"/>
+						<Link text="poi@gmail.com"/>
+						<Link text="SE0004" id="Id"/>
+						<Label text="sapui5" visible="false" id="desig"/>
+						<Label text="{name}" visible="false" id="name"/>
+					</layout:VerticalLayout>
+				</o:headerContent>
+				<o:sections>
+					<o:ObjectPageSection showTitle="false">
+						<o:ObjectPageSubSection >
+							<o:blocks>
+									<GenericTile class="sapUiTinyMargin" header="Complain Form" subheader="" press="complainForm"  >
+										<TileContent>
+									<ImageContent src="sap-icon://form" />
+								</TileContent>
+									</GenericTile>
+								<GenericTile class="sapUiTinyMargin" header="Status" subheader="" press="Status">
+									<TileContent footer="{notif}" footerColor="Error">
+									<ImageContent src="sap-icon://order-status"/>
+								</TileContent>
+								</GenericTile>
+							</o:blocks>
+						</o:ObjectPageSubSection>
+					</o:ObjectPageSection>
+				</o:sections>
+			</o:ObjectPageLayout>
+		</content>
+		<footer class="margin" style="margin-bottom: 100px">
+			<Bar class="idEmpFooter">
+				<contentLeft>
+					<Button icon="sap-icon://bell" press="empNotification" id="bell" visible="{data>/allExtraInfo/0/popNotif}"
+						type="{data>/allData/0/notifType1}"/>
+					<!--<Button icon="sap-icon://bell" press="onNotifClick"  visible="{data>/allExtraInfo/0/popNotif1}"  />-->
+				</contentLeft>
+				<contentRight>
+					<Button type="Accept" text="Submit" press="onSubmit"></Button>
+				</contentRight>
+			</Bar>
+		</footer>
+	</Page>
+</mvc:View>

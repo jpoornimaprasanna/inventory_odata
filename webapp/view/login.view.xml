@@ -1,0 +1,49 @@
+<mvc:View controllerName="inventory.Inventory.controller.login" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:mvc="sap.ui.core.mvc"
+	displayBlock="true" xmlns="sap.m" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" xmlns:tnt="sap.tnt">
+	<App id="idAppControl">
+		<pages >
+			<Page showHeader="false">
+				<!--title="{i18n>title}"-->
+				<tnt:ToolHeader >
+					<Image src="http://1.bp.blogspot.com/-GBhaM8-qOxM/VOIzf8pwwDI/AAAAAAAAABQ/DktIHaplSrc/s1600/banner.png" width="100px" height="50px"/>
+					<ToolbarSpacer>
+						<layoutData>
+							<OverflowToolbarLayoutData priority="NeverOverflow" minWidth="10px"/>
+						</layoutData>
+					</ToolbarSpacer>
+					<Button text="LogOn" type="Transparent">
+						<layoutData>
+							<OverflowToolbarLayoutData priority="Low"/>
+						</layoutData>
+					</Button>
+					<tnt:ToolHeaderUtilitySeparator/>
+					<ToolbarSpacer>
+						<layoutData>
+							<OverflowToolbarLayoutData priority="NeverOverflow" minWidth="20px"/>
+						</layoutData>
+					</ToolbarSpacer>
+				</tnt:ToolHeader>
+				<content>
+					<l:VerticalLayout width="90%" class="gridWrapper">
+						<!--<Panel backgroundDesign="Solid" class="sapUiLargeMargin">-->
+							<l:Grid containerQuery="true" defaultIndent="L4 M4 S6" defaultSpan="L6 M6 S6">
+								<VBox class="sapUiLargeMargin">
+									<f:SimpleForm editable="true" layout="ResponsiveGridLayout" maxContainerCols="2">
+										<Label text="{i18n>emp_Id}"/>
+										<Input placeholder="" id="Id" liveChange="checkValidation" required="true" width="50%"/>
+										<Label text="{i18n>emp_Password}"/>
+										<Input value="" type="Password" placeholder="" id="Password" required="true" width="50%"/>
+										<Label/>
+										<HBox alignContent="Center">
+											<Button text="Submit" width="100%" class="sapUiLargeMarginBegin sapUiLargeMarginBottom" id="Button" press="onSubmit"/>
+										</HBox>
+									</f:SimpleForm>
+								</VBox>
+							</l:Grid>
+						<!--</Panel>-->
+					</l:VerticalLayout>
+				</content>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>

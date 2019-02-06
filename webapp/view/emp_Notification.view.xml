@@ -1,0 +1,77 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m"
+	controllerName="inventory.Inventory.controller.emp_Notification" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:semantic="sap.m.semantic"
+	xmlns:f="sap.ui.layout.form" xmlns:layout="sap.ui.layout">
+	<App>
+		<pages>
+			<Page title="{i18n>tlNotification}" showNavButton="true" navButtonPress="onClick">
+				<headerContent>
+					<Button icon="sap-icon://log" press="onLogout"/>
+				</headerContent>
+				<content>
+					<SplitContainer>
+						<masterPages>
+							<Page title="{i18n>Notification_List}">
+								<content>
+									<SearchField liveChange="onSearch"/>
+									<List id="list1"
+										items="{ path : 'data>/notifications', sorter : { path : 'staText',group: true, descending: true}, groupHeaderFactory: '.getGroupHeader'}"
+										itemPress="onItemPressed">
+										<!--{data>/status}-->
+										<items>
+											<ObjectListItem title="{data>issue}" number="{data>Date}" type="Active">
+												<attributes>
+													<ObjectAttribute title="{i18n>ticket_number}" text="{data>ticketNo}"/>
+												</attributes>
+											</ObjectListItem>
+										</items>
+									</List>
+								</content>
+								<footer>
+									<Toolbar></Toolbar>
+								</footer>
+							</Page>
+						</masterPages>
+						<detailPages>
+							<Page showHeader="false">
+								<!--<headerContent>
+									<Button icon="sap-icon://log" press="onLogout"/>
+								</headerContent>-->
+								<content>
+									<f:SimpleForm id="SimpleFormDisplay" editable="true" layout="ResponsiveGridLayout"
+										title="{i18n>notification} of Ticket Number {data>/odata/ticketNo}" labelSpanXL="3" labelSpanL="3" labelSpanM="3" labelSpanS="12"
+										adjustLabelSpan="false" emptySpanXL="4" emptySpanL="4" emptySpanM="4" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1"
+										singleContainerFullSize="false">
+										<Label text="Ticket Number"/>
+										<Text text="{data>/odata/ticketNo}"/>
+										<Label text="Name"/>
+										<Text text="{data>/odata/name} "/>
+										<Label text="Id"/>
+										<Text text="{data>/odata/id} "/>
+										<Label text="Designation"/>
+										<Text text="{data>/odata/Designation} " id="idDesig"/>
+										<Label text="Issue"/>
+										<Text text="{data>/odata/issue} "/>
+										<Label text="Issue Description"/>
+										<Text text=" {data>/odata/description} "/>
+										<Label text="Date"/>
+										<Text text=" {data>/odata/Date} "/>
+									</f:SimpleForm>
+									<f:SimpleForm id="emptyId">
+										<Text text=" Click List Item To Get The Status "/>
+									</f:SimpleForm>
+								</content>
+								<footer>
+									<Toolbar>
+										<ToolbarSpacer/>
+										<Button text="Accept" type="Accept" press="onApproved" enabled="{data>/odata/enable3}"/>
+										<Button text="Reject" type="Reject" press="onReject" enabled="{data>/odata/enable3}"/>
+									</Toolbar>
+								</footer>
+							</Page>
+						</detailPages>
+					</SplitContainer>
+				</content>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>

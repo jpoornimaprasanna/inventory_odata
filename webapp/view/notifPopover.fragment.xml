@@ -1,0 +1,11 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout">
+	<Popover title="Sample" class="sapUiContentPadding" placement="Top" showHeader="false" contentHeight="300px" contentWidth="400px">
+		<l:VerticalLayout  width="100%">
+			<l:content>
+				<List items="{path: 'data>/allData', templateShareable : 'true'}" class="sapContrastPlus sapContrast">
+					<NotificationListItem authorName="{data>name}" title="{data>issue}" description="{data>id}"></NotificationListItem>
+				</List>
+				</l:content>
+				</l:VerticalLayout>
+			</Popover>
+		</core:FragmentDefinition>

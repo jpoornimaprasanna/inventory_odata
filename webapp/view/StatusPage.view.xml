@@ -1,0 +1,76 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="inventory.Inventory.controller.StatusPage"
+	xmlns:html="http://www.w3.org/1999/xhtml" xmlns:semantic="sap.m.semantic" xmlns:f="sap.ui.layout.form" xmlns:tnt="sap.tnt"
+	xmlns:o="sap.uxap" xmlns:layout="sap.ui.layout" xmlns:pf="sap.suite.ui.commons">
+	<App>
+		<pages>
+			<SplitContainer>
+				<masterPages>
+					<Page title="{i18n>Status list}" showNavButton="true" navButtonPress="onClick">
+						<content>
+							<SearchField liveChange="onSearch"/>
+							<List id="list1" items="{}" itemPress="onItemPressed">
+								<items>
+									<ObjectListItem title="{issue}" number="{Date}" type="Active">
+										<attributes>
+											<ObjectAttribute title="{i18n>ticket_number}" text="{ticketNo}"/>
+										</attributes>
+									</ObjectListItem>
+								</items>
+							</List>
+						</content>
+						<footer>
+							<Toolbar></Toolbar>
+						</footer>
+					</Page>
+				</masterPages>
+				<detailPages>
+					<Page title="{i18n>status}">
+						<headerContent>
+							<Button icon="sap-icon://log" press="onLogout"/>
+						</headerContent>
+						<content>
+							<f:SimpleForm id="SimpleFormDisplay" editable="true" layout="ResponsiveGridLayout"
+								title="{i18n>status} of Ticket Number {data>/odata/ticketNo}" labelSpanXL="3" labelSpanL="3" labelSpanM="3" labelSpanS="12"
+								adjustLabelSpan="false" emptySpanXL="4" emptySpanL="4" emptySpanM="4" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1"
+								singleContainerFullSize="false">
+								<f:content>
+									<Label text="Ticket Number"/>
+									<Text text="{data>/odata/ticketNo}"/>
+									<Label text="Issue"/>
+									<Text text="{data>/odata/issue}"/>
+									<Label text="Description"/>
+									<Text text="{data>/odata/description}"/>
+									<Label text="Date"/>
+									<Text text="{data>/odata/Date}"/>
+									<Label text="Status" class="sapUiMediumMarginTop"/>
+									<!--<Text text="{data>/odata/status}"/>-->
+									<pf:ProcessFlow>
+										<pf:lanes>
+											<pf:ProcessFlowLaneHeader iconSrc="{data>/odata/tlInprocess}" text="{data>/odata/tlInprocessText}" position="{data>/odata/position}"
+												id="idTlStatus"/>
+											<pf:ProcessFlowLaneHeader iconSrc="{data>/odata/hrWaitins}" text="{data>/odata/hrWaitingText}" position="{data>/odata/position1}"
+												id="idHrStatus"/>
+										</pf:lanes>
+									</pf:ProcessFlow>
+									<Label text="HR Status" visible="{data>/odata/vis}"/>
+									<Text text="{data>/odata/hrRejDec}"/>
+									<Label></Label>
+									<Text text="{data>/odata/issueTime}"></Text>
+								</f:content>
+							</f:SimpleForm>
+							<f:SimpleForm id="emptyId">
+								<Text text=" Click List Item To Get The Status "/>
+							</f:SimpleForm>
+						</content>
+						<footer>
+							<Toolbar>
+								<ToolbarSpacer/>
+								<Button text="Resend" type="Accept" visible="{data>/odata/visible1}"></Button>
+							</Toolbar>
+						</footer>
+					</Page>
+				</detailPages>
+			</SplitContainer>
+		</pages>
+	</App>
+</mvc:View>

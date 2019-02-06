@@ -1,0 +1,220 @@
+{
+	"_version": "1.8.0",
+	"sap.app": {
+		"id": "inventory.Inventory",
+		"type": "application",
+		"i18n": "i18n/i18n.properties",
+		"applicationVersion": {
+			"version": "1.0.0"
+		},
+		"title": "{{appTitle}}",
+		"description": "{{appDescription}}",
+		"sourceTemplate": {
+			"id": "servicecatalog.connectivityComponentForManifest",
+			"version": "0.0.0"
+		},
+		"dataSources": {
+			"ZINVENTORY_SRV": {
+				"uri": "/sap/opu/odata/sap/ZINVENTORY_SRV/",
+				"type": "OData",
+				"settings": {
+					"odataVersion": "2.0",
+					"localUri": "localService/metadata.xml"
+				}
+			}
+		}
+	},
+	"sap.ui": {
+		"technology": "UI5",
+		"icons": {
+			"icon": "",
+			"favIcon": "",
+			"phone": "",
+			"phone@2": "",
+			"tablet": "",
+			"tablet@2": ""
+		},
+		"deviceTypes": {
+			"desktop": true,
+			"tablet": true,
+			"phone": true
+		},
+		"supportedThemes": [
+			"sap_hcb",
+			"sap_belize"
+		]
+	},
+	"sap.ui5": {
+		"rootView": {
+			"viewName": "inventory.Inventory.view.login",
+			"type": "XML"
+		},
+		"dependencies": {
+			"minUI5Version": "1.30.0",
+			"libs": {
+				"sap.ui.layout": {},
+				"sap.ui.core": {},
+				"sap.m": {},
+				"sap.tnt": {}
+			}
+		},
+		"contentDensities": {
+			"compact": true,
+			"cozy": true
+		},
+		"models": {
+			"i18n": {
+				"type": "sap.ui.model.resource.ResourceModel",
+				"settings": {
+					"bundleName": "inventory.Inventory.i18n.i18n"
+				}
+			},
+			"data": {
+				"type": "sap.ui.model.json.JSONModel",
+				"uri": "data.json"
+			},
+			"": {
+				"type": "sap.ui.model.odata.v2.ODataModel",
+				"settings": {
+					"defaultOperationMode": "Server",
+					"defaultBindingMode": "OneWay",
+					"defaultCountMode": "Request"
+				},
+				"dataSource": "ZINVENTORY_SRV",
+				"preload": true
+			}
+		},
+		"resources": {
+			"css": [
+				{
+					"uri": "css/style.css"
+				}
+			]
+		},
+		"routing": {
+			"config": {
+				"routerClass": "sap.m.routing.Router",
+				"viewType": "XML",
+				"async": true,
+				"viewPath": "inventory.Inventory.view",
+				"controlAggregation": "pages",
+				"controlId": "idAppControl",
+				"clearControlAggregation": false
+			},
+			"routes": [
+				{
+					"name": "Routelogin",
+					"pattern": "Routelogin",
+					"target": [
+						"Targetlogin"
+					]
+				},
+				{
+					"name": "AdminPage",
+					"pattern": "AdminPage/{obj}",
+					"target": "AdminPage"
+				},
+				{
+					"name": "EmployeePage",
+					"pattern": "EmployeePage",
+					"target": "EmployeePage"
+				},
+				{
+					"name": "",
+					"pattern": "",
+					"target": "Targetlogin"
+				},
+				{
+					"name": "StatusPage",
+					"pattern": "StatusPage",
+					"target": "StatusPage"
+				},
+				{
+					"name": "issueStatics",
+					"pattern": "issueStatics",
+					"target": "issueStatics"
+				},
+				{
+					"name": "notifications",
+					"pattern": "Notifications",
+					"target": "notifications"
+				},
+				{
+					"name": "emp_Notification",
+					"pattern": "emp_Notification",
+					"target": "emp_Notification"
+				},
+				{
+					"name": "main",
+					"pattern": "main",
+					"target": "main"
+				}
+			],
+			"targets": {
+				"Targetlogin": {
+					"viewType": "XML",
+					"transition": "slide",
+					"clearControlAggregation": false,
+					"viewName": "login",
+					"routerClass": "sap.m.routing.Router",
+					"async": true,
+					"viewPath": "inventory.Inventory.view",
+					"controlAggregation": "pages",
+					"controlId": "idAppControl"
+				},
+				"EmployeePage": {
+					"viewType": "XML",
+					"viewName": "EmployeePage",
+					"routerClass": "sap.m.routing.Router",
+					"async": true,
+					"viewPath": "inventory.Inventory.view",
+					"controlAggregation": "pages",
+					"controlId": "idAppControl",
+					"clearControlAggregation": false
+				},
+				"AdminPage": {
+					"viewType": "XML",
+					"viewName": "AdminPage",
+					"routerClass": "sap.m.routing.Router",
+					"async": true,
+					"viewPath": "inventory.Inventory.view",
+					"controlAggregation": "pages",
+					"controlId": "idAppControl",
+					"clearControlAggregation": false
+				},
+				"StatusPage": {
+					"viewType": "XML",
+					"viewName": "StatusPage",
+					"routerClass": "sap.m.routing.Router",
+					"async": true,
+					"viewPath": "inventory.Inventory.view",
+					"controlAggregation": "pages",
+					"controlId": "idAppControl",
+					"clearControlAggregation": false
+				},
+				"issueStatics": {
+					"viewName": "issueStatics",
+					"viewType": "XML",
+					"viewId": "statics"
+				},
+				"notifications": {
+					"viewName": "notifications",
+					"viewType": "XML",
+					"viewId": "notifications"
+				},
+				"emp_Notification": {
+					"viewType": "XML",
+					"viewName": "emp_Notification"
+				},
+				"main": {
+					"viewType": "XML",
+					"viewName": "main"
+				}
+			}
+		}
+	},
+	"sap.platform.hcp": {
+		"uri": "webapp",
+		"_version": "1.1.0"
+	}
+}

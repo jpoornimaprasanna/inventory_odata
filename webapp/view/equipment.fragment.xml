@@ -1,0 +1,41 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:l="sap.ui.layout" xmlns:core="sap.ui.core">
+	<Dialog id="idEquipmentDialog" title="System Details">
+		<Toolbar>
+			<ToolbarSpacer/>
+			<SearchField width="40%" liveChange="onEmpEquSearch" id="input"/>
+		</Toolbar>
+		<Table id="idEquipmentTable" items="{data>/empInfo}">
+			<columns>
+				<Column hAlign="Center">
+					<Text text="{i18n>empId}"/>
+				</Column>
+				<Column hAlign="Center">
+					<Text text="{i18n>empName}"/>
+				</Column>
+				<Column hAlign="Center">
+					<Text text="{i18n>sysNo}"/>
+				</Column>
+				<Column hAlign="Center">
+					<Text text="{i18n>doSupply}"/>
+				</Column>
+				<Column hAlign="Center">
+					<Text text="{i18n>remark}"/>
+				</Column>
+			</columns>
+			<items>
+				<ColumnListItem>
+					<cells>
+						<Text text="{data>id}"/>
+						<Text text="{data>name}"/>
+						<Text text="{data>sysNo}"/>
+						<Text text="{data>dos}"/>
+						<Text text="{data>totIssues}"/>
+					</cells>
+				</ColumnListItem>
+			</items>
+		</Table>
+		<beginButton>
+			<Button text="OK" press="onEquipmentDialogClose"/>
+		</beginButton>
+	</Dialog>
+</core:FragmentDefinition>

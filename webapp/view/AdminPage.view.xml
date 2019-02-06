@@ -1,0 +1,84 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="inventory.Inventory.controller.AdminPage"
+	xmlns:html="http://www.w3.org/1999/xhtml" xmlns:o="sap.uxap" xmlns:layout="sap.ui.layout" xmlns:tnt="sap.tnt">
+	<tnt:ToolHeader>
+		<Image src="http://1.bp.blogspot.com/-GBhaM8-qOxM/VOIzf8pwwDI/AAAAAAAAABQ/DktIHaplSrc/s1600/banner.png" width="100px" height="50px"/>
+		<ToolbarSpacer>
+			<layoutData>
+				<OverflowToolbarLayoutData priority="NeverOverflow" minWidth="10px"/>
+			</layoutData>
+		</ToolbarSpacer>
+		<Button text="{i18n>title1}" type="Transparent">
+			<layoutData>
+				<OverflowToolbarLayoutData priority="Low"/>
+			</layoutData>
+		</Button>
+		<tnt:ToolHeaderUtilitySeparator/>
+		<ToolbarSpacer>
+			<layoutData>
+				<OverflowToolbarLayoutData priority="NeverOverflow" minWidth="20px"/>
+			</layoutData>
+		</ToolbarSpacer>
+		<Button icon="sap-icon://log" type="Transparent" press="onLogout">
+			<layoutData>
+				<OverflowToolbarLayoutData priority="NeverOverflow"/>
+			</layoutData>
+		</Button>
+	</tnt:ToolHeader>
+	<Page showHeader="false">
+		<content>
+			<o:ObjectPageLayout showFooter="true">
+				<o:headerTitle >
+					<o:ObjectPageHeader objectImageURI="{image}" objectTitle="{name}" objectImageShape="Circle" objectImageAlt="{name}"
+						isObjectIconAlwaysVisible="true" objectSubtitle="{designation}"></o:ObjectPageHeader>
+				</o:headerTitle>
+				<o:headerContent>
+					<layout:VerticalLayout>
+						<Label text="{phoneno}"/>
+						<Link text="{email}"/>
+						<Label text="{id}"/>
+					</layout:VerticalLayout>
+				</o:headerContent>
+				<o:sections>
+					<o:ObjectPageSection showTitle="false">
+						<o:ObjectPageSubSection >
+							<o:blocks>
+								
+									<GenericTile class="sapUiTinyMargin" header="{i18n>tile1}" subheader="" press="equipment"  >
+										<TileContent>
+									<ImageContent src="sap-icon://add-equipment" />
+								</TileContent>
+									</GenericTile>
+								<GenericTile class="sapUiTinyMargin" header="{i18n>tile2}" subheader="" press="notifications">
+									<TileContent footer="{notif}" footerColor="Error">
+									<ImageContent src="sap-icon://bell"/>
+								</TileContent>
+								</GenericTile>
+								<GenericTile class="sapUiTinyMargin" header="{i18n>tile3}" subheader="" press="issueDetails">
+									<TileContent>
+									<ImageContent src="sap-icon://quality-issue"/>
+								</TileContent>
+								</GenericTile>
+								<GenericTile class="sapUiTinyMargin" header="{i18n>tile4}" subheader="" press="onissueStatics">
+									<TileContent>
+									<ImageContent src="sap-icon://area-chart"/>
+								</TileContent>
+								</GenericTile>
+								<GenericTile class="sapUiTinyMargin" header="{i18n>tile5}" subheader="Employee SignUp" press="onRegister">
+									<TileContent>
+									<ImageContent src="sap-icon://add-employee"/>
+								</TileContent>
+								</GenericTile>
+							
+							</o:blocks>
+						</o:ObjectPageSubSection>
+					</o:ObjectPageSection>
+				</o:sections>
+			</o:ObjectPageLayout>
+		</content>
+		<footer>
+			<Toolbar class="idAdminFooter">
+				<Button icon="sap-icon://bell" type="Transparent" text="{data>/allData/0/notifSymb}" class="sapUiTinyMargin" press="onNotifClick" visible="false"/>
+			</Toolbar>
+		</footer>
+	</Page>
+</mvc:View>

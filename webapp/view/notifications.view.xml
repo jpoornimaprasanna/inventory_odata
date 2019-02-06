@@ -1,0 +1,94 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="inventory.Inventory.controller.notifications"
+	xmlns:html="http://www.w3.org/1999/xhtml" xmlns:layout="sap.ui.layout" xmlns:tnt="sap.tnt" xmlns:f="sap.f" xmlns:form="sap.ui.layout.form">
+	<tnt:ToolHeader>
+		<Image src="http://1.bp.blogspot.com/-GBhaM8-qOxM/VOIzf8pwwDI/AAAAAAAAABQ/DktIHaplSrc/s1600/banner.png" width="100px" height="50px"/>
+		<ToolbarSpacer>
+			<layoutData>
+				<OverflowToolbarLayoutData priority="NeverOverflow" minWidth="10px"/>
+			</layoutData>
+		</ToolbarSpacer>
+		<tnt:ToolHeaderUtilitySeparator/>
+		<ToolbarSpacer>
+			<layoutData>
+				<OverflowToolbarLayoutData priority="NeverOverflow" minWidth="20px"/>
+			</layoutData>
+		</ToolbarSpacer>
+		<Button icon="sap-icon://log" type="Transparent" press="onLogout">
+			<layoutData>
+				<OverflowToolbarLayoutData priority="NeverOverflow"/>
+			</layoutData>
+		</Button>
+	</tnt:ToolHeader>
+	<f:FlexibleColumnLayout backgroundDesign="Transparent" layout="OneColumn" id="idFlexibleColumn">
+		<f:beginColumnPages>
+			<Page showHeader="false" showFooter="false" id="beginPage">
+				<content>
+					<List items="{ path : 'data>/allData', sorter : { path : 'staText',group: true,	descending: true}, groupHeaderFactory: '.getGroupHeader'}"
+						headerText="Employee Names" id="notfList" includeItemInSelection="true" itemPress="onEventPress" mode="SingleSelectMaster">
+						<headerToolbar>
+							<Toolbar>
+								<ToolbarSpacer/>
+								<SearchField width="40%" liveChange="onSearch" id="input"/>
+							</Toolbar>
+						</headerToolbar>
+						<items >
+							<ObjectListItem title="{data>issue}" number="Ticket No:" numberUnit="{data>ticketNo}" type="Navigation">
+								<firstStatus>
+									<ObjectStatus icon="{data>staIcon}" text="{data>staText}" state="{data>state}"/>
+								</firstStatus>
+								<attributes>
+									<ObjectAttribute text="{data>id}"/>
+									<ObjectAttribute text="{data>Date}"/>
+								</attributes>
+							</ObjectListItem>
+						</items>
+					</List>
+				</content>
+				<footer height="20px" visible="false">
+					<Toolbar class="bFooter"></Toolbar>
+				</footer>
+			</Page>
+		</f:beginColumnPages>
+		<f:midColumnPages >
+			<Page title="Notification Details">
+				<Toolbar>
+					<ToolbarSpacer/>
+					<Button icon="sap-icon://decline" type="Transparent" press="onClosingDetail"></Button>
+					<!--<core:Icon src="sap-icon://decline" class="sapUiMediumMargin"/>-->
+				</Toolbar>
+				<content>
+					<form:SimpleForm id="SimpleFormChange3" editable="false" layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanL="4" labelSpanM="4"
+						labelSpanS="12" adjustLabelSpan="false" emptySpanXL="1" emptySpanL="2" emptySpanM="1" emptySpanS="0" columnsXL="2" columnsL="1" columnsM="1"
+						singleContainerFullSize="false">
+						<form:content>
+							<Label text="{i18n>tNo}" class="sapUiTinyMargin"/>
+							<Text text="{data>/notiData/ticketNo}" class="sapUiTinyMargin"/>
+							<Label text="{i18n>emId}" class="sapUiTinyMargin"/>
+							<Text text="{data>/notiData/id}" class="sapUiTinyMargin"/>
+							<Label text="{i18n>eName}" class="sapUiTinyMargin"/>
+							<Text text="{data>/notiData/name}" class="sapUiTinyMargin"/>
+							<Label text="{i18n>issue}" class="sapUiTinyMargin"/>
+							<Text text="{data>/notiData/issue}" class="sapUiTinyMargin"/>
+							<Label text="{i18n>eDec}" class="sapUiTinyMargin"/>
+							<Text text="{data>/notiData/description}" class="sapUiTinyMargin"/>
+							<Label text="{i18n>date}" class="sapUiTinyMargin"/>
+							<Text text="{data>/notiData/Date}" class="sapUiTinyMargin"/>
+							<Label text="{i18n>tlSta}" class="sapUiTinyMargin"/>
+							<Text text="{data>/notiData/tlInprocessText}" class="sapUiTinyMargin"/>
+							<Label text="{i18n>tlDec}" class="sapUiTinyMargin" visible="{data>/notiData/visible}"/>
+							<Text text="{data>/notiData/tlRejDec}" class="sapUiTinyMargin"/>
+						</form:content>
+					</form:SimpleForm>
+				</content>
+				<footer height="20px">
+					<Toolbar class="bFooter">
+						<ToolbarSpacer/>
+						<Button text="Accept" visible="{data>/notiData/enable}" press="onHrAccept" enabled="{data>/notiData/enable2}"></Button>
+						<Button text="Reject" press="onReject" visible="{data>/notiData/enable}" enabled="{data>/notiData/enable2}"></Button>
+					    <Text text="Please Wait till TL Accept/Reject " class="sapUiMediumMargin" visible="{data>/notiData/enable1}"></Text>
+					</Toolbar>
+				</footer>
+			</Page>
+		</f:midColumnPages>
+	</f:FlexibleColumnLayout>
+</mvc:View>

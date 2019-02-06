@@ -1,0 +1,92 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="inventory.Inventory.controller.EmployeePage"
+	xmlns:html="http://www.w3.org/1999/xhtml" xmlns:tnt="sap.tnt" xmlns:o="sap.uxap" xmlns:layout="sap.ui.layout"
+	xmlns:forms="sap.ui.layout.form">
+	<tnt:ToolHeader>
+		<Image src="http://1.bp.blogspot.com/-GBhaM8-qOxM/VOIzf8pwwDI/AAAAAAAAABQ/DktIHaplSrc/s1600/banner.png" width="100px" height="50px"/>
+		<ToolbarSpacer>
+			<layoutData>
+				<OverflowToolbarLayoutData priority="NeverOverflow" minWidth="10px"/>
+			</layoutData>
+		</ToolbarSpacer>
+		<Button text="{i18n>employee}" type="Transparent">
+			<layoutData>
+				<OverflowToolbarLayoutData priority="Low"/>
+			</layoutData>
+		</Button>
+		<tnt:ToolHeaderUtilitySeparator/>
+		<ToolbarSpacer>
+			<layoutData>
+				<OverflowToolbarLayoutData priority="NeverOverflow" minWidth="20px"/>
+			</layoutData>
+		</ToolbarSpacer>
+		<Button icon="sap-icon://log" type="Transparent" press="onLogout">
+			<layoutData>
+				<OverflowToolbarLayoutData priority="NeverOverflow"/>
+			</layoutData>
+		</Button>
+	</tnt:ToolHeader>
+	<Page showHeader="false">
+		<content>
+			<o:ObjectPageLayout >
+				<o:headerTitle>
+					<o:ObjectPageHeader objectImageURI="{image}" objectTitle="{name}" objectImageShape="Circle" objectImageAlt="{name}"
+						isObjectIconAlwaysVisible="true" objectSubtitle="{designation}">
+						<o:actions>
+							<o:ObjectPageHeaderActionButton id="status_Button" icon="sap-icon://order-status" type="{data>/allExtraInfo/0/statusType}"
+								tooltip="{i18n>status}" press="onPressStatus"/>
+						</o:actions>
+					</o:ObjectPageHeader>
+				</o:headerTitle>
+				<o:headerContent>
+					<layout:VerticalLayout>
+						<Label text="{phoneno}"/>
+						<Link text="{email}"/>
+						<Link text="{id}" id="Id"/>
+						<Label text="{designation}" visible="false" id="desig"/>
+						<Label text="{name}" visible="false" id="name"/>
+					</layout:VerticalLayout>
+					<!--<layout:VerticalLayout>
+				
+				
+			</layout:VerticalLayout>-->
+				</o:headerContent>
+				<o:sections>
+					<o:ObjectPageSection>
+						<o:ObjectPageSubSection id="paymentSubSection" title="Complaints">
+							<!--<o:blocks>-->
+							<forms:SimpleForm editable="true" maxContainerCols="2" id="ComplaisId" labelSpanL="5" labelSpanM="8" labelSpanS="6" adjustLabelSpan="false"
+								emptySpanL="0" emptySpanM="0" emptySpanS="0" layout="ResponsiveLayout" columnsL="2" columnsM="2">
+								<!--<layout:Grid>-->
+								<layout:VerticalLayout class="sapUiLargeMarginBegin">
+									<Label text="Issue" width="300px" class="sapUiLargeMarginBegin"/>
+									<ComboBox items="{ path: 'data>/issues' }" class="sapUiLargeMarginBegin" selectedItem="Issue" change="onChange" width="500px" id="comboId">
+										<core:Item text="{data>issue}"/>
+									</ComboBox>
+									<Label text="Description" width="300px" class="sapUiLargeMarginBegin"/>
+									<TextArea cols="40" rows="5" width="500px" id="desId" class="sapUiLargeMarginBegin"/>
+								</layout:VerticalLayout>
+								<!--</layout:Grid>-->
+								<!--<Label text="date" width="300px"/>
+								<DatePicker id="DP2" valueFormat="yyyy-MM-dd" displayFormat="long" change="handleChange" class="sapUiSmallMarginBottom" width="300px"/>-->
+								<!--<Label/>-->
+								<!--<Button type="Accept" text="Submit" press="onSubmit"/>-->
+							</forms:SimpleForm>
+						</o:ObjectPageSubSection>
+					</o:ObjectPageSection>
+				</o:sections>
+			</o:ObjectPageLayout>
+		</content>
+		<footer class="margin" style="margin-bottom: 100px">
+			<Bar class="idEmpFooter">
+				<contentLeft>
+					<Button icon="sap-icon://bell" press="empNotification" id="bell" visible="{data>/allExtraInfo/0/popNotif}"
+						type="{data>/allData/0/notifType1}"/>
+					<!--<Button icon="sap-icon://bell" press="onNotifClick"  visible="{data>/allExtraInfo/0/popNotif1}"  />-->
+				</contentLeft>
+				<contentRight>
+					<Button type="Accept" text="Submit" press="onSubmit"></Button>
+				</contentRight>
+			</Bar>
+		</footer>
+	</Page>
+</mvc:View>

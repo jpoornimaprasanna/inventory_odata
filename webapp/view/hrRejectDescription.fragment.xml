@@ -1,0 +1,13 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:l="sap.ui.layout" xmlns:core="sap.ui.core" xmlns:form="sap.ui.layout.form">
+	<Dialog id="idHrDialog" title="Reason">
+		<form:SimpleForm id="isRejectSimpleForm" editable="false" layout="ResponsiveGridLayout">
+			<form:content>
+				<Text text="{i18n>rejStatus}:" />
+				<TextArea rows="5" id="idHrRejDec"/>
+			</form:content>
+		</form:SimpleForm>
+		<beginButton>
+			<Button text="{i18n>sub}" press="onHrRejectClose"/>
+		</beginButton>
+	</Dialog>
+</core:FragmentDefinition>

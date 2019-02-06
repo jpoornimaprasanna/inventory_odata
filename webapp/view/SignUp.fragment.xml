@@ -1,0 +1,26 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:l="sap.ui.layout" xmlns:core="sap.ui.core" xmlns:forms="sap.ui.layout.form">
+	<Dialog id="idSignUpDialog" title="Employee Details" >
+		<forms:SimpleForm editable="true" maxContainerCols="2" id="ComplaisId" labelSpanL="5" labelSpanM="8" labelSpanS="6" adjustLabelSpan="false"
+			emptySpanL="0" emptySpanM="0" emptySpanS="0" layout="ResponsiveLayout" columnsL="2" columnsM="2">
+			<Label text="Employee Id"/>
+			<Input value=""/>
+			<Label text="Employee Name"/>
+			<Input value=""/>
+			<Label text="Employee Designation"/>
+			<Input value=""/>
+			<Label text=" Password"/>
+			<Input value=""/>
+			<Label text="Email"/>
+			<Input value=""/>
+			<Label text="Phone No"/>
+			<Input value=""/>
+			<Label text="System No"/>
+			<Input value=""/>
+			<Label text="D-O-B"/>
+			<Input value=""/>
+			</forms:SimpleForm>
+		<beginButton>
+			<Button text="Cancel" press="onSubmit"/>
+		</beginButton>
+	</Dialog>
+</core:FragmentDefinition>
