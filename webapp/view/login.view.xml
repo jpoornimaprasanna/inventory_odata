@@ -3,7 +3,6 @@
 	<App id="idAppControl">
 		<pages >
 			<Page showHeader="false">
-				<!--title="{i18n>title}"-->
 				<tnt:ToolHeader >
 					<Image src="http://1.bp.blogspot.com/-GBhaM8-qOxM/VOIzf8pwwDI/AAAAAAAAABQ/DktIHaplSrc/s1600/banner.png" width="100px" height="50px"/>
 					<ToolbarSpacer>
@@ -25,7 +24,6 @@
 				</tnt:ToolHeader>
 				<content>
 					<l:VerticalLayout width="90%" class="gridWrapper">
-						<!--<Panel backgroundDesign="Solid" class="sapUiLargeMargin">-->
 							<l:Grid containerQuery="true" defaultIndent="L4 M4 S6" defaultSpan="L6 M6 S6">
 								<VBox class="sapUiLargeMargin">
 									<f:SimpleForm editable="true" layout="ResponsiveGridLayout" maxContainerCols="2">
@@ -40,7 +38,6 @@
 									</f:SimpleForm>
 								</VBox>
 							</l:Grid>
-						<!--</Panel>-->
 					</l:VerticalLayout>
 				</content>
 			</Page>
