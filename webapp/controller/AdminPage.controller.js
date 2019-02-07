@@ -102,6 +102,36 @@ sap.ui.define([
 		},
 	    onSubmit: function () {
 			this.getView().byId("idSignUpDialog").close();
+		},
+		onSignup: function () {
+			var empId = this.getView().byId("idEmpId").getValue();
+			var empName = this.getView().byId("idEmpName").getValue();
+			var empDes = this.getView().byId("idEmpDesig").getValue();
+			var password = this.getView().byId("idPass").getValue();
+			var email = this.getView().byId("idEmail").getValue();
+			var number = this.getView().byId("idNum").getValue();
+			var sysNo = this.getView().byId("idSysNo").getValue();
+			var DOB = this.getView().byId("idDob").getValue();
+			var oData = new sap.ui.model.odata.ODataModel("/sap/opu/odata/sap/ZINVENTORY_SRV");
+			var obj1 = {
+				"Eid" : empId,
+				"Ename":empName,
+				"Edesig":empDes,
+				"Epassword":password,
+				"Email":email,
+				"Phoneno":number,
+				"Systemno":sysNo,
+				"Edob":DOB
+			};
+			oData.create("/EmployeeInfoSet",obj1 , {
+                    success:function(odata){
+                        debugger;
+                    },
+                    error:function(oresponse){
+                        debugger;
+                    }
+                })
+
 		}
 	});
 
