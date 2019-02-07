@@ -3,24 +3,27 @@
 		<forms:SimpleForm editable="true" maxContainerCols="2" id="ComplaisId" labelSpanL="5" labelSpanM="8" labelSpanS="6" adjustLabelSpan="false"
 			emptySpanL="0" emptySpanM="0" emptySpanS="0" layout="ResponsiveLayout" columnsL="2" columnsM="2">
 			<Label text="Employee Id"/>
-			<Input value=""/>
+			<Input id="idEmpId" value=""/>
 			<Label text="Employee Name"/>
-			<Input value=""/>
+			<Input id="idEmpName" value=""/>
 			<Label text="Employee Designation"/>
-			<Input value=""/>
+			<Input id="idEmpDesig" value=""/>
 			<Label text=" Password"/>
-			<Input value=""/>
+			<Input id="idPass" value=""/>
 			<Label text="Email"/>
-			<Input value=""/>
+			<Input id="idEmail" value=""/>
 			<Label text="Phone No"/>
-			<Input value=""/>
+			<Input id="idNum" value=""/>
 			<Label text="System No"/>
-			<Input value=""/>
+			<Input id="idSysNo" value=""/>
 			<Label text="D-O-B"/>
-			<Input value=""/>
+			<Input id="idDob" value=""/>
 			</forms:SimpleForm>
 		<beginButton>
-			<Button text="Cancel" press="onSubmit"/>
+			<Button text="SignUp" press="onSignup"/>
 		</beginButton>
+		<endButton>
+			<Button text="Cancel" press="onSubmit"/>
+		</endButton>
 	</Dialog>
 </core:FragmentDefinition>

@@ -31,10 +31,10 @@
       "path": "/sap/opu/odata",
       "target": {
         "type": "destination",
-        "name": "Gateway",
+        "name": "oData_service",
         "entryPath": "/sap/opu/odata"
       },
-      "description": "Gateway System"
+      "description": "Local oData Service"
     }
   ],
   "sendWelcomeFileRedirect": true
