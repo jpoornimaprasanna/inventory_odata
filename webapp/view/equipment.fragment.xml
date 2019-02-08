@@ -4,7 +4,7 @@
 			<ToolbarSpacer/>
 			<SearchField width="40%" liveChange="onEmpEquSearch" id="input"/>
 		</Toolbar>
-		<Table id="idEquipmentTable" items="{data>/empInfo}">
+		<Table id="idEquipmentTable" items="{data>/equipData}">
 			<columns>
 				<Column hAlign="Center">
 					<Text text="{i18n>empId}"/>
@@ -25,11 +25,11 @@
 			<items>
 				<ColumnListItem>
 					<cells>
-						<Text text="{data>id}"/>
-						<Text text="{data>name}"/>
-						<Text text="{data>sysNo}"/>
-						<Text text="{data>dos}"/>
-						<Text text="{data>totIssues}"/>
+						<Text text="{data>Eid}"/>
+						<Text text="{data>Ename}"/>
+						<Text text="{data>Systemno}"/>
+						<Text text="{data>Doi}"/>
+						<Text text="0"/>
 					</cells>
 				</ColumnListItem>
 			</items>

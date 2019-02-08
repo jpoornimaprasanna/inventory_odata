@@ -23,7 +23,7 @@
 		<f:beginColumnPages>
 			<Page showHeader="false" showFooter="false" id="beginPage">
 				<content>
-					<List items="{ path : 'data>/allData', sorter : { path : 'staText',group: true,	descending: true}, groupHeaderFactory: '.getGroupHeader'}"
+					<List items="{/AdminNotificationSet}"
 						headerText="Employee Names" id="notfList" includeItemInSelection="true" itemPress="onEventPress" mode="SingleSelectMaster">
 						<headerToolbar>
 							<Toolbar>
@@ -32,13 +32,13 @@
 							</Toolbar>
 						</headerToolbar>
 						<items >
-							<ObjectListItem title="{data>issue}" number="Ticket No:" numberUnit="{data>ticketNo}" type="Navigation">
-								<firstStatus>
+							<ObjectListItem title="{Issue}" number="Ticket No:" numberUnit="{Eticketno}" type="Navigation">
+								<!--<firstStatus>
 									<ObjectStatus icon="{data>staIcon}" text="{data>staText}" state="{data>state}"/>
-								</firstStatus>
+								</firstStatus>-->
 								<attributes>
-									<ObjectAttribute text="{data>id}"/>
-									<ObjectAttribute text="{data>Date}"/>
+									<ObjectAttribute text="{Eid}"/>
+									<ObjectAttribute text="{Issuedate}"/>
 								</attributes>
 							</ObjectListItem>
 						</items>
@@ -62,19 +62,19 @@
 						singleContainerFullSize="false">
 						<form:content>
 							<Label text="{i18n>tNo}" class="sapUiTinyMargin"/>
-							<Text text="{data>/notiData/ticketNo}" class="sapUiTinyMargin"/>
+							<Text text="{data>/notiData/Eticketno}" class="sapUiTinyMargin"/>
 							<Label text="{i18n>emId}" class="sapUiTinyMargin"/>
-							<Text text="{data>/notiData/id}" class="sapUiTinyMargin"/>
+							<Text text="{data>/notiData/Eid}" class="sapUiTinyMargin"/>
 							<Label text="{i18n>eName}" class="sapUiTinyMargin"/>
-							<Text text="{data>/notiData/name}" class="sapUiTinyMargin"/>
+							<Text text="{data>/notiData/ENAME}" class="sapUiTinyMargin"/>
 							<Label text="{i18n>issue}" class="sapUiTinyMargin"/>
-							<Text text="{data>/notiData/issue}" class="sapUiTinyMargin"/>
+							<Text text="{data>/notiData/Issue}" class="sapUiTinyMargin"/>
 							<Label text="{i18n>eDec}" class="sapUiTinyMargin"/>
-							<Text text="{data>/notiData/description}" class="sapUiTinyMargin"/>
+							<Text text="{data>/notiData/Issuedesc}" class="sapUiTinyMargin"/>
 							<Label text="{i18n>date}" class="sapUiTinyMargin"/>
-							<Text text="{data>/notiData/Date}" class="sapUiTinyMargin"/>
+							<Text text="{data>/notiData/Issuedate}" class="sapUiTinyMargin"/>
 							<Label text="{i18n>tlSta}" class="sapUiTinyMargin"/>
-							<Text text="{data>/notiData/tlInprocessText}" class="sapUiTinyMargin"/>
+							<Text text="{data>/notiData/Tlstatus}" class="sapUiTinyMargin"/>
 							<Label text="{i18n>tlDec}" class="sapUiTinyMargin" visible="{data>/notiData/visible}"/>
 							<Text text="{data>/notiData/tlRejDec}" class="sapUiTinyMargin"/>
 						</form:content>

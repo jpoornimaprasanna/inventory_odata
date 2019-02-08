@@ -4,7 +4,7 @@
 			<ToolbarSpacer/>
 			<SearchField width="40%" liveChange="onSearchByTno" id="input1"/>
 		</Toolbar>
-		<Table id="idIssueDetailsTable" items="{data>/allData}">
+		<Table id="idIssueDetailsTable" items="{data>/issueStatus}">
 			<columns>
 				<Column hAlign="Center">
 					<Text text="{i18n>eid}"/>
@@ -22,10 +22,10 @@
 			<items>
 				<ColumnListItem>
 					<cells>
-						<Text text="{data>id}"/>
-						<Text text="{data>ticketNo}"/>
-						<Text text="{data>tlInprocessText}"/>
-						<Text text="{data>hrWaitingText}"/>
+						<Text text="{data>Eid}"/>
+						<Text text="{data>Eticketno}"/>
+						<Text text="{data>Tlstatus}"/>
+						<Text text="{data>Hrstatus}"/>
 						
 					</cells>
 				</ColumnListItem>
