@@ -7,13 +7,46 @@ sap.ui.define([
 	"use strict";
 	return Controller.extend("inventory.Inventory.controller.AdminPage", {
 		onInit: function () {
-			var oModel = new JSONModel(jQuery.sap.getModulePath("inventory.Inventory", "/data.json"));
+			/*var oModel = new JSONModel(jQuery.sap.getModulePath("inventory.Inventory", "/data.json"));
 			this.getView().setModel(oModel);
-			this.getView().setModel(new JSONModel(), "jmodel");
-
+			this.getView().setModel(new JSONModel(), "jmodel");*/
 			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
 			oRouter.getRoute("AdminPage").attachPatternMatched(this._onObjectMatched, this);
-
+			var oModel1 = this.getOwnerComponent().getModel();
+			oModel1.read("/EmployeeInfoSet", {
+                success: function (odata) {
+                	 debugger
+                	var equip = odata.results;
+                   /* var model = new JSONModel();
+                    model.setData(euip);
+                    this.getView().setModel(model,"equipment");*/
+                    var jmodel = this.getView().getModel("data");
+			jmodel.setProperty("/equipData", equip);
+                	//**/*this.getView().setModel(odata.results*/*/);*/
+                   
+                }.bind(this),
+                  error: function (oresponse) {
+                    debugger
+                }.bind(this)
+            });
+            oModel1.read("/AdminNotificationSet", {
+                success: function (odata) {
+                	 debugger
+                	var equip1 = odata.results;
+                   /* var model = new JSONModel();
+                    model.setData(euip);
+                    this.getView().setModel(model,"equipment");*/
+                    var jmodel = this.getView().getModel("data");
+			jmodel.setProperty("/issueStatus", equip1);
+                	//**/*this.getView().setModel(odata.results*/*/);*/
+                   
+                }.bind(this),
+                  error: function (oresponse) {
+                    debugger
+                }.bind(this)
+            });
+			
+			
 		},
 		_onObjectMatched: function (oEvent) {
 			var oArg = oEvent.getParameters("arguments");
@@ -116,7 +149,7 @@ sap.ui.define([
 			var obj1 = {
 				"Eid" : empId,
 				"Ename":empName,
-				"Edesig":empDes,
+				"Edesig":empDes, 
 				"Epassword":password,
 				"Email":email,
 				"Phoneno":number,

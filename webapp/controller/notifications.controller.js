@@ -9,11 +9,29 @@ sap.ui.define([
 
 	return Controller.extend("inventory.Inventory.controller.AdminPage", {
 		onInit: function () {
-			var oModel = new JSONModel(jQuery.sap.getModulePath("inventory.Inventory", "/data.json"));
-			this.getView().setModel(oModel);
+			// var oModel = new JSONModel(jQuery.sap.getModulePath("inventory.Inventory", "/data.json"));
+			// this.getView().setModel(oModel);
+			
+			
 			this.getView().setModel(new JSONModel(), "jmodel");
 			//window.location.reload();
-		},
+			 var oDataModel = this.getOwnerComponent().getModel();
+            this.getView().setModel(oDataModel);
+            oDataModel.read("/AdminNotificationSet", {
+                success: function (odata) {
+                    debugger
+                    /*var adminNotif = odata.results;
+                    var model = new JSONModel();
+                    model.setData(adminNotif);
+                    this.getView().setModel(model,"data1");*/
+                    /*this.getView().setModel(model,"/notif");
+                    var notif;*/
+                }.bind(this),
+                  error: function (oresponse) {
+                    debugger
+                }.bind(this)
+            });
+		}/*,
 		onBeforeRendering: function () {
 			var alldata = this.getView().getModel("data").getProperty("/allData/");
 			for (var i = 0; i < alldata.length; i++) {
@@ -44,14 +62,16 @@ sap.ui.define([
 					}
 				}
 			}
-		},
+		}*/,
 		onEventPress: function (oEvent) {
 			var twoColumn = this.getView().byId("idFlexibleColumn");
 			twoColumn.setLayout(sap.f.LayoutType.TwoColumnsMidExpanded);
-			this.obj = oEvent.getParameters().listItem.getBindingContext("data").getObject();
+			this.obj = oEvent.getParameters().listItem.getBindingContext().getObject();
 			var jmodel = this.getView().getModel("data");
 			jmodel.setProperty("/notiData", this.obj);
 			this.getView().byId("beginPage").setShowFooter(true);
+		/*	var singleObject = oEvent.getParameters().listItem.getBindingContext().getObject();
+			this.getView().setModel("data1",singleObject);*/
 		},
 		onClosingDetail: function () {
 			var oneColumn = this.getView().byId("idFlexibleColumn");
