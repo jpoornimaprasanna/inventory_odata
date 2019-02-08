@@ -68,35 +68,38 @@ sap.ui.define([
 		checkValidation: function (oEvent) {
 
 		},
-
 		onSubmit: function () {
 			var Empid = this.getView().byId("Id").getValue();
 			var pwd = this.getView().byId("Password").getValue();
-
 			var oData = new sap.ui.model.odata.ODataModel("/sap/opu/odata/sap/ZINVENTORY_SRV");
-			// var oData = this.getOwnerComponent().getModel("AR_ODATAMODEL");
 			oData.read("/EmployeeInfoSet", {
-				success: function (odata) {
+				success: function (odata, oResponse) {
 					var idLen = odata.results.length;
 					for (var i = 0; i < idLen; i++) {
 						if(Empid === "" && pwd === "" ){
 							MessageToast.show("Please enter the Id and Password");
 							this.getView().byId("Id").setValueState("Error");
 							this.getView().byId("Password").setValueState("Error");
+						}else if(Empid === "SE1111" && pwd === "admin"){
+							var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+							oRouter.navTo("AdminPage", {
+								obj: i
+							});
+							break; 
 						}
 						else if (Empid === odata.results[i].Eid && pwd === odata.results[i].Epassword) {
-							
+							var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+							oRouter.navTo("main", {
+								obj: odata.results[i].Eid
+							});
+							break;
 						 }
 					}
-
-				},
-
+				}.bind(this),
 				error: function (err) {
 					console.log(err);
 				}
-
 			});
-
 			// this._model = new sap.ui.model.odata.ODataModel(oData, true);
 			// this.getView().setModel(this._model);
 		}

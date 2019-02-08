@@ -14,13 +14,41 @@ sap.ui.define([
 			this.getView().byId("SimpleFormDisplay").setVisible(false);
 		},
 		_onObjectMatched: function (oEvent) {
-			var oArg = oEvent.getParameters("arguments");
+			
 			var oView = this.getView();
-			oView.setModel(this.getOwnerComponent().getModel("data"));
-			oView.bindElement("/status/0/" + oArg.arguments.obj);
-			var model23=this.getOwnerComponent().getModel("data");
-			this.getView().setModel(model23);
-			this.getView().getModel("data").setProperty("/odata/visible1",false);
+			oView.setModel(this.getOwnerComponent().getModel());
+			 var oData = this.getOwnerComponent().getModel();
+			var oArg = oEvent.getParameters("arguments");
+			this.id= oArg.arguments.obj;
+			
+			var a= new Filter({
+				path: "Eid",
+				operator: FilterOperator.EQ,
+				value1: this.id
+			});
+			var filter = [];
+			filter.push(a);
+			// var filterVal = {
+			// 	filters: filter
+			// };
+			
+			oData.read("/zinStatusSet('"+ this.id +"')",{
+			//	filters:filter,
+				success: function(odata){
+					 //this.getView().setModel(odata);
+				console.log("success");	
+				},
+				error: function(oEve){
+				console.log("error");	
+				}
+			});
+			
+			
+			
+			
+			// var model23=this.getOwnerComponent().getModel("data");
+			// this.getView().setModel(model23);
+			// this.getView().getModel("data").setProperty("/odata/visible1",false);
 		},
 		onSearch: function (oEvent) {
 			var olist = this.getView().byId("list1"),
@@ -43,7 +71,8 @@ sap.ui.define([
 			this.getView().byId("SimpleFormDisplay").setVisible(true);
 			var obj = oEvent.getParameters().listItem.getBindingContext().getObject(),
 				oDetails = this.getView().getModel("data");
-			oDetails.setProperty("/odata", obj);
+				oDetails.setProperty("/Status",obj);
+		
 		},
 		onClick: function (oEvent) {
 			var path = this.getView().getBindingContext().sPath.substring();

@@ -1,7 +1,8 @@
 sap.ui.define([
 	"sap/ui/core/mvc/Controller",
-	"sap/m/MessageToast"
-], function (Controller, MessageToast) {
+	"sap/m/MessageToast",
+	"sap/ui/model/json/JSONModel"
+], function (Controller, MessageToast,JSONModel) {
 	"use strict";
 	return Controller.extend("inventory.Inventory.controller.EmployeePage", {
 		onInit: function () {
@@ -9,16 +10,22 @@ sap.ui.define([
 			oRouter.getRoute("EmployeePage").attachMatched(this._onObjectMatched, this);
 		},
 		_onObjectMatched: function (oEvent) {
+		    var oData = this.getOwnerComponent().getModel();
 			var oArg = oEvent.getParameters("arguments");
-			var oView = this.getView();
-			oView.setModel(this.getOwnerComponent().getModel("data"));
-			oView.bindElement("/empInfo/" + oArg.arguments.obj);
-			var are = oArg.arguments.obj;
-			var designation = this.getView().getModel("data").getProperty("/empInfo/" + are + "/designation/");
-			if (designation === "Team Lead") {
-				this.getView().byId("bell").setVisible(true);
-			}
-		},
+			this.id= oArg.arguments.obj;
+			oData.read("/EmployeeInfoSet('"+this.id+"')",{
+				success: function(odata, oResponse){
+					//var emp = odata.results;
+					var data = new JSONModel();
+					data.setData(odata);
+					this.getView().setModel(data);
+				console.log("success");	
+				}.bind(this),
+				error: function(oEve){
+				console.log("error");	
+				}.bind(this)
+			});
+			},
 		onPressStatus: function (oEvent) {
 			var id = this.getView().byId("Id").getProperty("text");
 			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);

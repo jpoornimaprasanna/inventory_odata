@@ -8,11 +8,11 @@
 					<Page title="{i18n>Status list}" showNavButton="true" navButtonPress="onClick">
 						<content>
 							<SearchField liveChange="onSearch"/>
-							<List id="list1" items="{}" itemPress="onItemPressed">
+							<List id="list1" items="{/zinStatusSet}" itemPress="onItemPressed">
 								<items>
-									<ObjectListItem title="{issue}" number="{Date}" type="Active">
+									<ObjectListItem title="{Issue}" number="{Eid}" type="Active">
 										<attributes>
-											<ObjectAttribute title="{i18n>ticket_number}" text="{ticketNo}"/>
+											<ObjectAttribute title="Date" text="{Submitingdate}"/>
 										</attributes>
 									</ObjectListItem>
 								</items>
@@ -30,32 +30,32 @@
 						</headerContent>
 						<content>
 							<f:SimpleForm id="SimpleFormDisplay" editable="true" layout="ResponsiveGridLayout"
-								title="{i18n>status} of Ticket Number {data>/odata/ticketNo}" labelSpanXL="3" labelSpanL="3" labelSpanM="3" labelSpanS="12"
+								title="{i18n>status} of Ticket Number {}" labelSpanXL="3" labelSpanL="3" labelSpanM="3" labelSpanS="12"
 								adjustLabelSpan="false" emptySpanXL="4" emptySpanL="4" emptySpanM="4" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1"
 								singleContainerFullSize="false">
 								<f:content>
 									<Label text="Ticket Number"/>
-									<Text text="{data>/odata/ticketNo}"/>
+									<Text text="{data>/Status/Ticketno}"/>
 									<Label text="Issue"/>
-									<Text text="{data>/odata/issue}"/>
+									<Text text="{data>/Status/Issue}"/>
 									<Label text="Description"/>
-									<Text text="{data>/odata/description}"/>
+									<Text text="{data>/Status/Issuedescription}"/>
 									<Label text="Date"/>
-									<Text text="{data>/odata/Date}"/>
+									<Text text="{data>/Status/Submitingdate}"/>
 									<Label text="Status" class="sapUiMediumMarginTop"/>
 									<!--<Text text="{data>/odata/status}"/>-->
 									<pf:ProcessFlow>
 										<pf:lanes>
-											<pf:ProcessFlowLaneHeader iconSrc="{data>/odata/tlInprocess}" text="{data>/odata/tlInprocessText}" position="{data>/odata/position}"
+											<pf:ProcessFlowLaneHeader iconSrc="{data>/Status/Tlstatusicon}" text="{Tlstatus}" position="{}"
 												id="idTlStatus"/>
-											<pf:ProcessFlowLaneHeader iconSrc="{data>/odata/hrWaitins}" text="{data>/odata/hrWaitingText}" position="{data>/odata/position1}"
+											<pf:ProcessFlowLaneHeader iconSrc="{data>/Status/Hrstatusicon}" text="{Hrstatus}" position="{}"
 												id="idHrStatus"/>
 										</pf:lanes>
 									</pf:ProcessFlow>
-									<Label text="HR Status" visible="{data>/odata/vis}"/>
-									<Text text="{data>/odata/hrRejDec}"/>
+									<Label text="HR Status" visible="{}"/>
+									<Text text="{}"/>
 									<Label></Label>
-									<Text text="{data>/odata/issueTime}"></Text>
+									<Text text="{}"></Text>
 								</f:content>
 							</f:SimpleForm>
 							<f:SimpleForm id="emptyId">
@@ -65,7 +65,7 @@
 						<footer>
 							<Toolbar>
 								<ToolbarSpacer/>
-								<Button text="Resend" type="Accept" visible="{data>/odata/visible1}"></Button>
+								<Button text="Resend" type="Accept" visible="{}"></Button>
 							</Toolbar>
 						</footer>
 					</Page>

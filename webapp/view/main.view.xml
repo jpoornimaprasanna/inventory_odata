@@ -28,17 +28,17 @@
 		<content>
 			<o:ObjectPageLayout >
 				<o:headerTitle>
-					<o:ObjectPageHeader objectImageURI="{image}" objectTitle="{name}" objectImageShape="Circle" objectImageAlt="{name}"
+					<o:ObjectPageHeader objectImageURI="image" objectTitle="{/Ename}" objectImageShape="Circle" objectImageAlt="{name}"
 						isObjectIconAlwaysVisible="true" objectSubtitle="{designation}">
 					</o:ObjectPageHeader>
 				</o:headerTitle>
 				<o:headerContent>
 					<layout:VerticalLayout>
-						<Label text="6746536456"/>
-						<Link text="poi@gmail.com"/>
-						<Link text="SE0004" id="Id"/>
-						<Label text="sapui5" visible="false" id="desig"/>
-						<Label text="{name}" visible="false" id="name"/>
+						<Label text="{/Eid}"/>
+						<Link text="{/Email}"/>
+						<Link text="{/Edesig}" id="Id"/>
+						<!--<Label text="{/Edesig}" visible="false" id="desig"/>-->
+						<Label text="{/name}"  id="name"/>
 					</layout:VerticalLayout>
 				</o:headerContent>
 				<o:sections>

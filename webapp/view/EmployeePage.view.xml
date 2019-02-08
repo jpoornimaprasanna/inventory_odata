@@ -29,21 +29,21 @@
 		<content>
 			<o:ObjectPageLayout >
 				<o:headerTitle>
-					<o:ObjectPageHeader objectImageURI="{image}" objectTitle="{name}" objectImageShape="Circle" objectImageAlt="{name}"
-						isObjectIconAlwaysVisible="true" objectSubtitle="{designation}">
+					<o:ObjectPageHeader objectImageURI="{image}" objectTitle="{Ename}" objectImageShape="Circle" objectImageAlt="{Ename}"
+						isObjectIconAlwaysVisible="true" objectSubtitle="{Edesig}">
 						<o:actions>
-							<o:ObjectPageHeaderActionButton id="status_Button" icon="sap-icon://order-status" type="{data>/allExtraInfo/0/statusType}"
+							<o:ObjectPageHeaderActionButton id="status_Button" icon="sap-icon://order-status" 
 								tooltip="{i18n>status}" press="onPressStatus"/>
 						</o:actions>
-					</o:ObjectPageHeader>
+					</o:ObjectPageHeader>         
 				</o:headerTitle>
 				<o:headerContent>
 					<layout:VerticalLayout>
-						<Label text="{phoneno}"/>
-						<Link text="{email}"/>
-						<Link text="{id}" id="Id"/>
-						<Label text="{designation}" visible="false" id="desig"/>
-						<Label text="{name}" visible="false" id="name"/>
+						<Label text="{/Phoneno}"/>
+						<Link text="{/Email}"/>
+						<Link text="{/Eid}" id="Id"/>
+						<Label text="{/Edesig}" visible="false" id="desig"/>
+						<Label text="{/Ename}" visible="false" id="name"/>
 					</layout:VerticalLayout>
 					<!--<layout:VerticalLayout>
 				
