@@ -13,14 +13,12 @@
 							<Page title="{i18n>Notification_List}">
 								<content>
 									<SearchField liveChange="onSearch"/>
-									<List id="list1"
-										items="{ path : 'data>/notifications', sorter : { path : 'staText',group: true, descending: true}, groupHeaderFactory: '.getGroupHeader'}"
-										itemPress="onItemPressed">
+									<List id="list1" items="{data>/empNotif}"  itemPress="onItemPressed">
 										<!--{data>/status}-->
 										<items>
-											<ObjectListItem title="{data>issue}" number="{data>Date}" type="Active">
+											<ObjectListItem title="{data>Issue}" number="{data>Submitingdate}" type="Active">
 												<attributes>
-													<ObjectAttribute title="{i18n>ticket_number}" text="{data>ticketNo}"/>
+													<ObjectAttribute title="{i18n>ticket_number}" text="{data>Ticketno}"/>
 												</attributes>
 											</ObjectListItem>
 										</items>
@@ -42,19 +40,19 @@
 										adjustLabelSpan="false" emptySpanXL="4" emptySpanL="4" emptySpanM="4" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1"
 										singleContainerFullSize="false">
 										<Label text="Ticket Number"/>
-										<Text text="{data>/odata/ticketNo}"/>
+										<Text text="{data>/odata/Ticketno}"/>
 										<Label text="Name"/>
-										<Text text="{data>/odata/name} "/>
+										<Text text="{data>/odata/Ename} "/>
 										<Label text="Id"/>
-										<Text text="{data>/odata/id} "/>
+										<Text text="{data>/odata/Eid} "/>
 										<Label text="Designation"/>
-										<Text text="{data>/odata/Designation} " id="idDesig"/>
+										<Text text="{data>/odata/Edesig} " id="idDesig"/>
 										<Label text="Issue"/>
-										<Text text="{data>/odata/issue} "/>
+										<Text text="{data>/odata/Issue} "/>
 										<Label text="Issue Description"/>
-										<Text text=" {data>/odata/description} "/>
+										<Text text=" {data>/odata/Issuedescription} "/>
 										<Label text="Date"/>
-										<Text text=" {data>/odata/Date} "/>
+										<Text text=" {data>/odata/Submitingdate} "/>
 									</f:SimpleForm>
 									<f:SimpleForm id="emptyId">
 										<Text text=" Click List Item To Get The Status "/>

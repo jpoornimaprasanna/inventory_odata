@@ -28,14 +28,14 @@
 		<content>
 			<o:ObjectPageLayout showFooter="true">
 				<o:headerTitle >
-					<o:ObjectPageHeader objectImageURI="{image}" objectTitle="{name}" objectImageShape="Circle" objectImageAlt="{name}"
-						isObjectIconAlwaysVisible="true" objectSubtitle="{designation}"></o:ObjectPageHeader>
+					<o:ObjectPageHeader objectImageURI="{image}" objectTitle="{equipment>/Ename}" objectImageShape="Circle" objectImageAlt="{Ename}"
+						isObjectIconAlwaysVisible="true" objectSubtitle="{/Edesig}"></o:ObjectPageHeader>
 				</o:headerTitle>
 				<o:headerContent>
 					<layout:VerticalLayout>
-						<Label text="{phoneno}"/>
-						<Link text="{email}"/>
-						<Label text="{id}"/>
+						<Label text="{equipment>/Phoneno}"/>
+						<Link text="{equipment>/Email}"/>
+						<Label text="{equipment>/Eid}"/>
 					</layout:VerticalLayout>
 				</o:headerContent>
 				<o:sections>

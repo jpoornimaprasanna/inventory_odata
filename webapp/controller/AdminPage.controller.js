@@ -45,14 +45,26 @@ sap.ui.define([
                     debugger
                 }.bind(this)
             });
-			
-			
 		},
 		_onObjectMatched: function (oEvent) {
-			var oArg = oEvent.getParameters("arguments");
-			var oView = this.getView();
+			var oArg = oEvent.getParameters("arguments").arguments.obj;
+			var oModel2 = this.getOwnerComponent().getModel();
+			oModel2.read("/EmployeeInfoSet('"+oArg+"')", {
+                success: function (odata) {
+                	 debugger
+                	var equip = odata;
+                    var model1 = new JSONModel();
+                    model1.setData(equip);
+                    this.getView().setModel(model1,"equipment");
+                }.bind(this),
+                  error: function (oresponse) {
+                    debugger
+                }.bind(this)
+            });
+			
+			/*var oView = this.getView();
 			oView.setModel(this.getOwnerComponent().getModel("data"));
-			oView.bindElement("/empInfo/" + oArg.arguments.obj);
+			oView.bindElement("/empInfo/" + oArg.arguments.obj);*/
 		},
 		equipment: function (oEvent) {
 			var oView = this.getView();
@@ -92,7 +104,7 @@ sap.ui.define([
 			var aFilter = [];
 			var sQuery = this.getView().byId("input").getValue();
 			if (sQuery) {
-				aFilter.push(new Filter("id", FilterOperator.Contains, sQuery));
+				aFilter.push(new Filter("Eid", FilterOperator.Contains, sQuery));
 			}
 			var oList = this.getView().byId("idEquipmentTable");
 			var oBinding = oList.getBinding("items");
@@ -118,7 +130,7 @@ sap.ui.define([
 			var aFilter = [];
 			var sQuery = this.getView().byId("input1").getValue();
 			if (sQuery) {
-				aFilter.push(new Filter("ticketNo", FilterOperator.Contains, sQuery));
+				aFilter.push(new Filter("Eticketno", FilterOperator.Contains, sQuery));
 			}
 			var oList = this.getView().byId("idIssueDetailsTable");
 			var oBinding = oList.getBinding("items");
@@ -164,7 +176,7 @@ sap.ui.define([
                         debugger;
                     }
                 })
-
+          this.getView().byId("idSignUpDialog").close();
 		}
 	});
 

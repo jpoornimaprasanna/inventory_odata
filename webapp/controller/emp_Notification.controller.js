@@ -14,8 +14,23 @@ sap.ui.define([
 			/*this.getView().setModel(new JSONModel(), "data");*/
 			this.getView().byId("emptyId").setVisible(true);
 			this.getView().byId("SimpleFormDisplay").setVisible(false);
+			var oModelData = this.getOwnerComponent().getModel();
+			this.oData=oModelData;
+			oModelData.read("/zinNotificationSet",{
+                success: function (odata) {
+                	 debugger
+                	var equip = odata.results;
+                    this.getView().getModel("data").setProperty("/empNotif",equip);
+                    
+                }.bind(this),
+                  error: function (oresponse) {
+                    debugger
+                }.bind(this)
+            }
 			
-		},
+			);
+			
+		}/*,
 		onBeforeRendering: function () {
 			var notification = this.getView().getModel("data").getProperty("/notifications/");
 			for (var i = 0; i < notification.length; i++) {
@@ -46,7 +61,7 @@ sap.ui.define([
 					}
 				}
 			}
-		},
+		}*/,
 
 		onReject: function () {
 			var oView = this.getView();
@@ -128,10 +143,33 @@ sap.ui.define([
 			binding.filter(arr);
 			binding.filter(arr);
 		},
-		onApproved: function () {
-			var tcNo = this.obj.ticketNo;
-			var id = this.obj.id;
-			var ctid = this.getView().getModel("data").getProperty("/status/0/" + id);
+		onApproved: function (evt) {
+			var tcNo = this.obj.Ticketno;
+			var id = this.obj.Eid;
+			var issue = this.obj.Issue;
+			var issueDec = this.obj.Issuedescription;
+			var date = this.obj.Submitingdate;
+			var issueStatus = this.obj.Issuestatus;
+			var oData = this.getOwnerComponent().getModel();
+			var obj1 ={
+				Eid :id,
+				Eticketno:tcNo,
+				Issue:issue,
+				Issuedesc:issueDec,
+				Issuedate:date,
+				Tlstatus:"TL ACCEPTED",
+				Hrstatus:"HR INPROCESS",
+				ISSUESTATUS:issueStatus
+			};
+			oData.create("/AdminNotificationSet",obj1 , {
+                    success:function(odata){
+                        debugger;
+                    },
+                    error:function(oresponse){
+                        debugger;
+                    }
+                })
+		/*	var ctid = this.getView().getModel("data").getProperty("/status/0/" + id);
 			var alldata = this.getView().getModel("data").getProperty("/allData/");
 			if(this.Designation != "Team Lead"){
 				this.getView().getModel("data").setProperty("/allExtraInfo/0/statusType", "Accept");
@@ -154,7 +192,7 @@ sap.ui.define([
 					this.getView().getModel("data").setProperty("/allData/" + j + "/state", "Success");
 					this.getView().getModel("data").setProperty("/allData/" + j + "/enable3", false);
 				}
-			}
+			}*/
 			MessageToast.show("Issue Has Been Approved");
 		}
 	});

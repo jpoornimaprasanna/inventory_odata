@@ -83,7 +83,7 @@ sap.ui.define([
 						}else if(Empid === "SE1111" && pwd === "admin"){
 							var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
 							oRouter.navTo("AdminPage", {
-								obj: i
+								obj: "SE1111"
 							});
 							break; 
 						}
