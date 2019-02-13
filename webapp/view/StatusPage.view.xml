@@ -7,12 +7,12 @@
 				<masterPages>
 					<Page title="{i18n>Status list}" showNavButton="true" navButtonPress="onClick">
 						<content>
-							<SearchField liveChange="onSearch"/>
-							<List id="list1" items="{/zinStatusSet}" itemPress="onItemPressed">
+							<!--<SearchField liveChange="onSearch"/>-->
+							<List id="list1" items="{data>/stat1/results}" itemPress="onItemPressed">
 								<items>
-									<ObjectListItem title="{Issue}" number="{Eid}" type="Active">
+									<ObjectListItem title="{data>Issue}" number="{data>Eid}" type="Active">
 										<attributes>
-											<ObjectAttribute title="Date" text="{Submitingdate}"/>
+											<ObjectAttribute title="Date" text="{data>Submitingdate}"/>
 										</attributes>
 									</ObjectListItem>
 								</items>
@@ -35,25 +35,25 @@
 								singleContainerFullSize="false">
 								<f:content>
 									<Label text="Ticket Number"/>
-									<Text text="{data>/Status/Ticketno}"/>
+									<Text text="{data>/Stat1/Ticketno}"/>
 									<Label text="Issue"/>
-									<Text text="{data>/Status/Issue}"/>
+									<Text text="{data>/Stat1/Issue}"/>
 									<Label text="Description"/>
-									<Text text="{data>/Status/Issuedescription}"/>
+									<Text text="{data>/Stat1/Issuedescription}"/>
 									<Label text="Date"/>
-									<Text text="{data>/Status/Submitingdate}"/>
+									<Text text="{data>/Stat1/Submitingdate}"/>
 									<Label text="Status" class="sapUiMediumMarginTop"/>
 									<!--<Text text="{data>/odata/status}"/>-->
 									<pf:ProcessFlow>
 										<pf:lanes>
-											<pf:ProcessFlowLaneHeader iconSrc="{data>/Status/Tlstatusicon}" text="{Tlstatus}" position="{}"
+											<pf:ProcessFlowLaneHeader iconSrc="sap-icon://status-in-process" text="{Tlstatus}" position="0"
 												id="idTlStatus"/>
-											<pf:ProcessFlowLaneHeader iconSrc="{data>/Status/Hrstatusicon}" text="{Hrstatus}" position="{}"
+											<pf:ProcessFlowLaneHeader iconSrc="{data>/Stat1/Hrstatusicon}" text="{Hrstatus}" position="1"
 												id="idHrStatus"/>
 										</pf:lanes>
 									</pf:ProcessFlow>
 									<Label text="HR Status" visible="{}"/>
-									<Text text="{}"/>
+									<Text text="{data>/Stat1/Hrstatus}"/>
 									<Label></Label>
 									<Text text="{}"></Text>
 								</f:content>

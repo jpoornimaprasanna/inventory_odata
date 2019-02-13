@@ -3,8 +3,10 @@ sap.ui.define([
 	"sap/ui/model/json/JSONModel",
 	"sap/ui/model/Filter",
 	"sap/ui/model/FilterOperator",
-	"sap/m/MessageToast"
-], function (Controller, JSONModel, Filter, FilterOperator, MessageToast) {
+	"sap/m/MessageToast",
+	"sap/ui/core/routing/History",
+	"sap/ui/core/UIComponent"
+], function (Controller, JSONModel, Filter, FilterOperator, MessageToast, History, UIComponent) {
 	"use strict";
 	return Controller.extend("inventory.Inventory.controller.StatusPage", {
 		onInit: function () {
@@ -14,16 +16,13 @@ sap.ui.define([
 			this.getView().byId("SimpleFormDisplay").setVisible(false);
 		},
 		_onObjectMatched: function (oEvent) {
-			
-			var oView = this.getView();
-			oView.setModel(this.getOwnerComponent().getModel());
-			 var oData = this.getOwnerComponent().getModel();
+		    var oData = this.getOwnerComponent().getModel();
 			var oArg = oEvent.getParameters("arguments");
 			this.id= oArg.arguments.obj;
 			
 			var a= new Filter({
 				path: "Eid",
-				operator: FilterOperator.EQ,
+				operator: sap.ui.model.FilterOperator.EQ,
 				value1: this.id
 			});
 			var filter = [];
@@ -31,60 +30,61 @@ sap.ui.define([
 			// var filterVal = {
 			// 	filters: filter
 			// };
-			
-			oData.read("/zinStatusSet('"+ this.id +"')",{
-			//	filters:filter,
+			// ('"+ this.id +"')
+			oData.read("/zinStatusSet",{
+				filters:filter,
 				success: function(odata){
-					 //this.getView().setModel(odata);
+				this.getView().getModel("data").setProperty("/stat1",odata);
 				console.log("success");	
-				},
+				}.bind(this),
 				error: function(oEve){
 				console.log("error");	
-				}
+				}.bind(this)
 			});
-			
-			
-			
-			
-			// var model23=this.getOwnerComponent().getModel("data");
-			// this.getView().setModel(model23);
-			// this.getView().getModel("data").setProperty("/odata/visible1",false);
 		},
 		onSearch: function (oEvent) {
-			var olist = this.getView().byId("list1"),
-				arr = [],
-				binding,
-				filters;
-			filters = new Filter({
-				filters: [new Filter("ticketNo", FilterOperator.Contains, oEvent.getSource().getValue()),
-					new Filter("Date", FilterOperator.Contains, oEvent.getSource().getValue())
-				],
-				and: false
+			var oData = this.getOwnerComponent().getModel();
+			var val = oEvent.getSource().getValue();             
+			
+			
+			var a= new Filter({
+				path: "ticketNo",
+				operator: sap.ui.model.FilterOperator.Contains,
+				value1: val
 			});
-			binding = olist.getBinding("items");
-			arr.push(filters);
-			binding.filter(arr);
-			binding.filter(arr);
+			var filter = [];
+			filter.push(a);
+			// var filterVal = {
+			// 	filters: filter
+			// };
+			// ('"+ this.id +"')
+			oData.read("/zinStatusSet",{
+				filters:filter,
+				success: function(odata){
+				this.getView().getModel("data").setProperty("/stat1",odata);
+				console.log("success");	
+				}.bind(this),
+				error: function(oEve){
+				console.log("error");	
+				}.bind(this)
+			});
 		},
 		onItemPressed: function (oEvent) {
 			this.getView().byId("emptyId").setVisible(false);
 			this.getView().byId("SimpleFormDisplay").setVisible(true);
-			var obj = oEvent.getParameters().listItem.getBindingContext().getObject(),
-				oDetails = this.getView().getModel("data");
-				oDetails.setProperty("/Status",obj);
-		
+			var obj = oEvent.getParameters().listItem.oBindingContexts.data.getObject();
+			// var obj = oEvent.getParameters().listItem.getBindingContext().getObject(),
+				var oDetails = this.getView().getModel("data");
+				oDetails.setProperty("/Stat1",obj);
 		},
 		onClick: function (oEvent) {
-			var path = this.getView().getBindingContext().sPath.substring();
-			var index = path.substring(path.lastIndexOf('/') + 1);
-			var oModel = this.getView().getParent().getModel("data").oData.empInfo;
-			for (var i = 0; i < oModel.length; i++) {
-				if (oModel[i].id === index) {
-					var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
-					oRouter.navTo("EmployeePage", {
-						obj: i
-					});
-				}
+			var oHistory = History.getInstance();
+			var sPreviousHash = oHistory.getPreviousHash();
+			if (sPreviousHash !== undefined) {
+				window.history.go(-1);
+			} else {
+				var oRouter = UIComponent.getRouterFor(this);
+				oRouter.navTo("overview", {}, true);
 			}
 
 		},
