@@ -148,6 +148,11 @@
 					"name": "main",
 					"pattern": "main/{obj}",
 					"target": "main"
+				},
+				{
+					"name": "login",
+					"pattern": "login",
+					"target": "Targetlogin"
 				}
 			],
 			"targets": {

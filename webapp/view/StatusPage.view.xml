@@ -46,9 +46,9 @@
 									<!--<Text text="{data>/odata/status}"/>-->
 									<pf:ProcessFlow>
 										<pf:lanes>
-											<pf:ProcessFlowLaneHeader iconSrc="sap-icon://status-in-process" text="{Tlstatus}" position="0"
+											<pf:ProcessFlowLaneHeader iconSrc="{data>/Stat1/Tlstatusicon}" text="{data>/Stat1/Tlstatus}" position="0"
 												id="idTlStatus"/>
-											<pf:ProcessFlowLaneHeader iconSrc="{data>/Stat1/Hrstatusicon}" text="{Hrstatus}" position="1"
+											<pf:ProcessFlowLaneHeader iconSrc="{data>/Stat1/Hrstatusicon}" text="{data>/Stat1/Hrstatus}" position="1"
 												id="idHrStatus"/>
 										</pf:lanes>
 									</pf:ProcessFlow>
@@ -65,7 +65,7 @@
 						<footer>
 							<Toolbar>
 								<ToolbarSpacer/>
-								<Button text="Resend" type="Accept" visible="{}"></Button>
+								<!--<Button text="Resend" type="Accept" visible="{}"></Button>-->
 							</Toolbar>
 						</footer>
 					</Page>

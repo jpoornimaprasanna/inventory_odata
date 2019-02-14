@@ -61,8 +61,8 @@
 								<footer>
 									<Toolbar>
 										<ToolbarSpacer/>
-										<Button text="Accept" type="Accept" press="onApproved" enabled="{data>/odata/enable3}"/>
-										<Button text="Reject" type="Reject" press="onReject" enabled="{data>/odata/enable3}"/>
+										<Button text="Accept" type="Accept" press="onApproved" enabled="{data>/odata/Buttonenable}"/>
+										<Button text="Reject" type="Reject" press="onReject" enabled="{data>/odata/Buttonenable}"/>
 									</Toolbar>
 								</footer>
 							</Page>

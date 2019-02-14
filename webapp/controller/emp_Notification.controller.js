@@ -7,62 +7,23 @@ sap.ui.define([
 	"sap/ui/core/routing/History"
 ], function (Controller, JSONModel, Filter, FilterOperator, MessageToast, History) {
 	"use strict";
-
 	return Controller.extend("inventory.Inventory.controller.emp_Notification", {
-
 		onInit: function () {
 			/*this.getView().setModel(new JSONModel(), "data");*/
 			this.getView().byId("emptyId").setVisible(true);
 			this.getView().byId("SimpleFormDisplay").setVisible(false);
 			var oModelData = this.getOwnerComponent().getModel();
-			this.oData=oModelData;
+			this.oData = oModelData;
 			oModelData.read("/zinNotificationSet",{
                 success: function (odata) {
-                	 debugger
                 	var equip = odata.results;
                     this.getView().getModel("data").setProperty("/empNotif",equip);
-                    
                 }.bind(this),
                   error: function (oresponse) {
-                    debugger
                 }.bind(this)
             }
-			
 			);
-			
-		}/*,
-		onBeforeRendering: function () {
-			var notification = this.getView().getModel("data").getProperty("/notifications/");
-			for (var i = 0; i < notification.length; i++) {
-				var tNo = notification[i].ticketNo;
-				var nId = notification[i].id;
-				var status1 = this.getView().getModel("data").getProperty("/status/0/" + nId);
-				var issueRejDate = notification[i].Date;
-				var issueDate = issueRejDate.slice(0, 2);
-				var issueDate1 = parseInt(issueDate);
-				var issueMonth = issueRejDate.slice(3, 5);
-				var issueMonth1 = parseInt(issueMonth);
-				var issueYear = issueRejDate.slice(6,11);
-				var issueYear1 = parseInt(issueYear);
-				var todaysDate = new Date();
-				var currYear = todaysDate.getFullYear();
-				var todaysDay = todaysDate.getDate();
-				var month = todaysDate.getMonth() + 1;
-				var preIssueDate1 = (31 - issueDate1) + todaysDay;
-				if ((todaysDay - 5 > issueDate1 && issueMonth1 == month) || (issueMonth1 == month - 1 && preIssueDate1 > 6) || (issueMonth1 < month -
-						1) || issueYear1 < currYear  ) {
-					notification.splice(i, 1);
-					i--;
-					for (var j = 0; j < status1.length; j++) {
-						if (status1[j].ticketNo === tNo) {
-							this.getView().getModel("data").setProperty("/status/0/" + nId + "/" + j + "/issueTime", "Minimum issue time has Expired ");
-							this.getView().getModel("data").setProperty("/status/0/" + nId + "/" + j + "/visible1", true);
-						}
-					}
-				}
-			}
-		}*/,
-
+		},
 		onReject: function () {
 			var oView = this.getView();
 			var oDialog = oView.byId("idTlDialog");
@@ -73,40 +34,19 @@ sap.ui.define([
 			oDialog.open();
 		},
 		onTlRejectSubmit: function () {
-			/*this.getView().byId("idTlDialog").close();*/
-			var id = this.obj.id;
-			var alldata = this.getView().getModel("data").getProperty("/allData/");
-			var rejStatus = this.getView().getModel("data").getProperty("/status/0/" + id);
-			var tcNo = this.obj.ticketNo;
-			this.decTa = this.getView().byId("idTlRejDec").getProperty("value");
-			if(this.Designation != "Team Lead"){
-				this.getView().getModel("data").setProperty("/allExtraInfo/0/statusType", "Accept");
-			}
-			for (var k = 0; k < alldata.length; k++) {
-				if (alldata[k].ticketNo === tcNo) {
-					this.getView().getModel("data").setProperty("/allData/" + k + "/tlRejDec", this.decTa);
-					this.getView().getModel("data").setProperty("/allData/" + k + "/tlInprocessText", "TL Rejected");
-					this.getView().getModel("data").setProperty("/allData/" + k + "/visible", true);
-					this.getView().getModel("data").setProperty("/allData/" + k + "/staIcon", "sap-icon://decline");
-					this.getView().getModel("data").setProperty("/allData/" + k + "/staText", "TL Rejected");
-					this.getView().getModel("data").setProperty("/allData/" + k + "/state", "Error");
-					this.getView().getModel("data").setProperty("/allData/" + k + "/enable3", false);
-				}
-			}
-			for (var z = 0; z < rejStatus.length; z++) {
-				if (rejStatus[z].ticketNo === tcNo) {
-					this.getView().getModel("data").setProperty("/status/0/" + id + "/" + z + "/tlInprocess", "sap-icon://decline");
-					this.getView().getModel("data").setProperty("/status/0/" + id + "/" + z + "/tlInprocessText", "TL Rejected");
-					this.getView().getModel("data").setProperty("/status/0/" + id + "/" + z + "/hrWaitins", "sap-icon://unlocked");
-					this.getView().getModel("data").setProperty("/status/0/" + id + "/" + z + "/hrWaitingText", "HR Locked");
-				}
-			}
-			if(this.decTa === ""){
-				MessageToast.show("Enter Valid Reason");
-			}else {
-				MessageToast.show("Issue Has Been Rejected");
-				this.getView().byId("idTlDialog").close();
-			}
+			var updateStatus = {
+                	Tlstatus:"TL Rejected",
+			     	Hrstatus:"HR Blocked",
+			     	Tlstatusicon:"sap-icon://decline",
+			     	Hrstatusicon:"sap-icon://cancel"
+			     };
+			     var tcNo = this.obj.Ticketno;
+			var id = this.obj.Eid;
+			     var oData1 = new sap.ui.model.odata.ODataModel("/sap/opu/odata/sap/ZINVENTORY_SRV");
+			     oData1.update("/zinStatusSet(Eid='"+id+"',Ticketno='"+tcNo+"')",updateStatus, {
+				success: function (odata) {	},
+				error: function (oresponse) { }
+			});
 		},
 		onTlRejectClose : function(){
 			this.getView().byId("idTlDialog").close();
@@ -159,41 +99,37 @@ sap.ui.define([
 				Issuedate:date,
 				Tlstatus:"TL ACCEPTED",
 				Hrstatus:"HR INPROCESS",
-				ISSUESTATUS:issueStatus
+				ISSUESTATUS:issueStatus,
 			};
+			
+			var updatedObj = {
+                	Tlstatus:"TL ACCEPTED",
+			     	Hrstatus:"HR INPROCESS",
+			     	Tlstatusicon:"sap-icon://accept",
+			     	Hrstatusicon:"sap-icon://status-in-process"
+			     };
+                var button={
+                Buttonenable : "false"	
+                };
 			oData.create("/AdminNotificationSet",obj1 , {
                     success:function(odata){
-                        debugger;
-                    },
+                       MessageToast.show("Issue Has Been Approved");
+                    }.bind(this),
                     error:function(oresponse){
-                        debugger;
-                    }
-                })
-		/*	var ctid = this.getView().getModel("data").getProperty("/status/0/" + id);
-			var alldata = this.getView().getModel("data").getProperty("/allData/");
-			if(this.Designation != "Team Lead"){
-				this.getView().getModel("data").setProperty("/allExtraInfo/0/statusType", "Accept");
-			};
-			for (var i = 0; i < ctid.length; i++) {
-				if (ctid[i].ticketNo === tcNo) {
-					this.getView().getModel("data").setProperty("/status/0/" + id + "/" + i + "/tlInprocess", "sap-icon://accept");
-					this.getView().getModel("data").setProperty("/status/0/" + id + "/" + i + "/tlInprocessText", "TL Accepted");
-					this.getView().getModel("data").setProperty("/status/0/" + id + "/" + i + "/hrWaitins", "sap-icon://status-in-process");
-					this.getView().getModel("data").setProperty("/status/0/" + id + "/" + i + "/hrWaitingText", "HR Inprocess");
-				}
-			}
-			for (var j = 0; j < alldata.length; j++) {
-				if (alldata[j].ticketNo === tcNo) {
-					this.getView().getModel("data").setProperty("/allData/" + j + "/enable", true);
-					this.getView().getModel("data").setProperty("/allData/" + j + "/enable1", false);
-					this.getView().getModel("data").setProperty("/allData/" + j + "/tlInprocessText", "TL Accepted");
-					this.getView().getModel("data").setProperty("/allData/" + j + "/staIcon", "sap-icon://accept");
-					this.getView().getModel("data").setProperty("/allData/" + j + "/staText", "TL Accepted");
-					this.getView().getModel("data").setProperty("/allData/" + j + "/state", "Success");
-					this.getView().getModel("data").setProperty("/allData/" + j + "/enable3", false);
-				}
-			}*/
-			MessageToast.show("Issue Has Been Approved");
+                       
+                    }.bind(this)
+                });
+                var oData1 = new sap.ui.model.odata.ODataModel("/sap/opu/odata/sap/ZINVENTORY_SRV");
+                oData1.update("/zinStatusSet(Eid='"+id+"',Ticketno='"+tcNo+"')",updatedObj, {
+				success: function (odata) {	},
+				error: function (oresponse) { }
+			});
+			oData1.update("/zinNotificationSet(Eid='"+id+"',Ticketno='"+tcNo+"')",button, {
+				success: function (odata) {
+				
+				},
+				error: function (oresponse) { }
+			});
 		}
 	});
 });

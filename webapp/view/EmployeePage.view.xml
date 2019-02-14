@@ -29,7 +29,7 @@
 		<content>
 			<o:ObjectPageLayout >
 				<o:headerTitle>
-					<o:ObjectPageHeader objectImageURI="{image}" objectTitle="{Ename}" objectImageShape="Circle" objectImageAlt="{Ename}"
+					<o:ObjectPageHeader objectImageURI="{image}" objectTitle="{/Ename}" objectImageShape="Circle" objectImageAlt="{Ename}"
 						isObjectIconAlwaysVisible="true" objectSubtitle="{Edesig}">
 						<o:actions>
 							<o:ObjectPageHeaderActionButton id="status_Button" icon="sap-icon://order-status" 
@@ -39,7 +39,7 @@
 				</o:headerTitle>
 				<o:headerContent>
 					<layout:VerticalLayout>
-						<Label text="{/Ename}"/>
+						<Label visible="false" text="{/Ename}"/>
 						<Label text="{/Phoneno}"/>
 						<Link text="{/Email}"/>
 						<Link text="{/Eid}" id="Id"/>
@@ -78,8 +78,7 @@
 		<footer class="margin" style="margin-bottom: 100px">
 			<Bar class="idEmpFooter">
 				<contentLeft>
-					<Button icon="sap-icon://bell" press="empNotification" id="bell" visible="false"
-						type="{data>/allData/0/notifType1}"/>
+					<Button icon="sap-icon://bell" press="empNotification" id="bell" visible="false" type="{data>/allData/0/notifType1}"/>
 					<!--<Button icon="sap-icon://bell" press="onNotifClick"  visible="{data>/allExtraInfo/0/popNotif1}"  />-->
 				</contentLeft>
 				<contentRight>

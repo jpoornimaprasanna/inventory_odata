@@ -64,7 +64,7 @@
 		<footer class="margin" style="margin-bottom: 100px">
 			<Bar class="idEmpFooter">
 				<contentLeft>
-					<!--<Button icon="sap-icon://bell" press="empNotification" id="bell" visible=false type="{data>/allData/0/notifType1}"/>-->
+					<Button icon="sap-icon://bell" press="empNotification" id="bell" visible="false" type="{data>/allData/0/notifType1}"/>
 					<!--<Button icon="sap-icon://bell" press="onNotifClick"  visible="{data>/allExtraInfo/0/popNotif1}"  />-->
 				</contentLeft>
 				<contentRight>
