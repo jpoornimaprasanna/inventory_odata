@@ -85,7 +85,7 @@
 						<ToolbarSpacer/>
 						<Button text="Accept" visible="{data>/notiData/enable}" press="onHrAccept" enabled="{data>/notiData/enable2}"></Button>
 						<Button text="Reject" press="onReject" visible="{data>/notiData/enable}" enabled="{data>/notiData/enable2}"></Button>
-					    <Text text="Please Wait till TL Accept/Reject " class="sapUiMediumMargin" visible="{data>/notiData/enable1}"></Text>
+					    <!--<Text text="Please Wait till TL Accept/Reject " class="sapUiMediumMargin" visible="{data>/notiData/enable1}"></Text>-->
 					</Toolbar>
 				</footer>
 			</Page>

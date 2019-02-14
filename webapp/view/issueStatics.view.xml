@@ -28,18 +28,18 @@
 						<chart:content>
 							<viz:VizFrame id="idVizFrame" height='300px' width="50%" vizType='line' vizProperties="{title:{visible:false}}">
 								<viz:dataset>
-									<viz.data:FlattenedDataset id="issueFragment" data="">
+									<viz.data:FlattenedDataset id="issueFragment" data="{data>/equipData}">
 										<viz.data:dimensions>
-											<viz.data:DimensionDefinition name="Data" value="{data>month}"/>
+											<viz.data:DimensionDefinition name="Month" value="{data>Month1}"  id="name1"/>
 										</viz.data:dimensions>
 										<viz.data:measures>
-											<viz.data:MeasureDefinition name="Ticket" value="{data>ticket}"/>
+											<viz.data:MeasureDefinition name="Issues" value="{data>Count1}" id="name2"/>
 										</viz.data:measures>
 									</viz.data:FlattenedDataset>
 								</viz:dataset>
 								<viz:feeds>
-									<viz.feeds:FeedItem id='valueAxisFeed' uid="valueAxis" type="Measure" values="Ticket"/>
-									<viz.feeds:FeedItem id='categoryAxisFeed' uid="categoryAxis" type="Dimension" values="Data"/>
+									<viz.feeds:FeedItem id='valueAxisFeed' uid="valueAxis" type="Measure" values="Issues"/>
+									<viz.feeds:FeedItem id='categoryAxisFeed' uid="categoryAxis" type="Dimension" values="Month"/>
 								</viz:feeds>
 							</viz:VizFrame>
 						</chart:content>
@@ -50,19 +50,19 @@
 		<masterPages>
 			<Page>
 				<content>
-					<ComboBox change="oChangeYearOrMonth" placeholder="Year/Month" class="sapUiLargeMargin" id="idData">
+					<!--<ComboBox change="oChangeYearOrMonth" placeholder="Year/Month" class="sapUiLargeMargin" id="idData">
 						<items>
 							<core:Item text="Year"/>
 							<core:Item text="Month"/>
 						</items>
-					</ComboBox>
-					<ComboBox change="sorter" placeholder="Select Year" class="sapUiLargeMargin" visible="false" id="idYear">
+					</ComboBox>-->
+					<ComboBox change="sorter" placeholder="Select Year" class="sapUiLargeMargin" visible="true" id="idYear">
 						<items>
+							<core:Item text="2019"/>
 							<core:Item text="2018"/>
-							<core:Item text="2017"/>
 						</items>
 					</ComboBox>
-					<ComboBox change="sorter" placeholder="Select Month" class="sapUiLargeMargin" visible="false" id="idMonth">
+					<!--<ComboBox change="sorter" placeholder="Select Month" class="sapUiLargeMargin" visible="false" id="idMonth">
 						<items>
 							<core:Item text="Jan"/>
 							<core:Item text="Feb"/>
@@ -77,8 +77,8 @@
 							<core:Item text="Nov"/>
 							<core:Item text="Dec"/>
 						</items>
-					</ComboBox>
-					<ComboBox change="sorter" placeholder="Select Status" class="sapUiLargeMargin" id="idStatus" visible="false">
+					</ComboBox>-->
+					<ComboBox change="sorter" placeholder="Select Status" class="sapUiLargeMargin" id="idStatus" visible="true">
 						<items>
 							<core:Item text="Approved"/>
 							<core:Item text="Rejected"/>

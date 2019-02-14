@@ -12,7 +12,7 @@
 			<Input id="idPass" value=""/>
 			<Label text="Email"/>
 			<Input id="idEmail" value=""/>
-			<Label text="Phone No"/>
+			<Label text="Phone No" />
 			<Input id="idNum" value=""/>
 			<Label text="System No"/>
 			<Input id="idSysNo" value=""/>
