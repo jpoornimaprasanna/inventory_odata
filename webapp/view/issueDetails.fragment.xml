@@ -23,7 +23,7 @@
 				<ColumnListItem>
 					<cells>
 						<Text text="{data>Eid}"/>
-						<Text text="{data>Eticketno}"/>
+						<Text text="{data>Ticketno}"/>
 						<Text text="{data>Tlstatus}"/>
 						<Text text="{data>Hrstatus}"/>
 						

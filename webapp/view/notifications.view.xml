@@ -32,7 +32,7 @@
 							</Toolbar>
 						</headerToolbar>
 						<items >
-							<ObjectListItem title="{Issue}" number="Ticket No:" numberUnit="{Eticketno}" type="Navigation">
+							<ObjectListItem title="{Issue}" number="Ticket No:" numberUnit="{Ticketno}" type="Active">
 								<!--<firstStatus>
 									<ObjectStatus icon="{data>staIcon}" text="{data>staText}" state="{data>state}"/>
 								</firstStatus>-->
@@ -62,7 +62,7 @@
 						singleContainerFullSize="false">
 						<form:content>
 							<Label text="{i18n>tNo}" class="sapUiTinyMargin"/>
-							<Text text="{data>/notiData/Eticketno}" class="sapUiTinyMargin"/>
+							<Text text="{data>/notiData/Ticketno}" class="sapUiTinyMargin"/>
 							<Label text="{i18n>emId}" class="sapUiTinyMargin"/>
 							<Text text="{data>/notiData/Eid}" class="sapUiTinyMargin"/>
 							<Label text="{i18n>eName}" class="sapUiTinyMargin"/>
@@ -75,16 +75,16 @@
 							<Text text="{data>/notiData/Issuedate}" class="sapUiTinyMargin"/>
 							<Label text="{i18n>tlSta}" class="sapUiTinyMargin"/>
 							<Text text="{data>/notiData/Tlstatus}" class="sapUiTinyMargin"/>
-							<Label text="{i18n>tlDec}" class="sapUiTinyMargin" visible="{data>/notiData/visible}"/>
-							<Text text="{data>/notiData/tlRejDec}" class="sapUiTinyMargin"/>
+							<!--<Label text="{i18n>tlDec}" class="sapUiTinyMargin" visible="{data>/notiData/visible}"/>
+							<Text text="{data>/notiData/tlRejDec}" class="sapUiTinyMargin"/>-->
 						</form:content>
 					</form:SimpleForm>
 				</content>
 				<footer height="20px">
 					<Toolbar class="bFooter">
 						<ToolbarSpacer/>
-						<Button text="Accept" visible="{data>/notiData/enable}" press="onHrAccept" enabled="{data>/notiData/enable2}"></Button>
-						<Button text="Reject" press="onReject" visible="{data>/notiData/enable}" enabled="{data>/notiData/enable2}"></Button>
+						<Button text="Accept"  press="onHrAccept" enabled="{ parts:[ {path: 'data>/notiData/BUTENABLE'}], formatter: 'inventory.Inventory.model.button.statusText'}"></Button>
+						<Button text="Reject" press="onReject"  enabled="{ parts:[ {path: 'data>/notiData/BUTENABLE'}], formatter: 'inventory.Inventory.model.button.statusText'}"></Button>
 					    <!--<Text text="Please Wait till TL Accept/Reject " class="sapUiMediumMargin" visible="{data>/notiData/enable1}"></Text>-->
 					</Toolbar>
 				</footer>

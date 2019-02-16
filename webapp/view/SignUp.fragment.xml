@@ -9,7 +9,7 @@
 			<Label text="Employee Designation"/>
 			<Input id="idEmpDesig" value=""/>
 			<Label text=" Password"/>
-			<Input id="idPass" value=""/>
+			<Input id="idPass" value="" type="Password"/>
 			<Label text="Email"/>
 			<Input id="idEmail" value=""/>
 			<Label text="Phone No" />

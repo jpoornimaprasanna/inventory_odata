@@ -4,17 +4,18 @@ sap.ui.define([
 	'sap/ui/model/Filter',
 	'sap/ui/model/FilterOperator',
 	"sap/m/MessageToast",
-], function (Controller, JSONModel, Filter, FilterOperator, MessageToast) {
+	"inventory/Inventory/model/button"
+], function (Controller, JSONModel, Filter, FilterOperator, MessageToast,button) {
 	"use strict";
-
 	return Controller.extend("inventory.Inventory.controller.AdminPage", {
+		formatter:button,
 		onInit: function () {
 			// var oModel = new JSONModel(jQuery.sap.getModulePath("inventory.Inventory", "/data.json"));
 			// this.getView().setModel(oModel);
-			
+			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+			oRouter.getRoute("notifications").attachPatternMatched(this._onObjectMatched2, this);
 			
 			this.getView().setModel(new JSONModel(), "jmodel");
-			//window.location.reload();
 			 var oDataModel = this.getOwnerComponent().getModel();
             this.getView().setModel(oDataModel);
             oDataModel.read("/AdminNotificationSet", {
@@ -31,7 +32,14 @@ sap.ui.define([
                     debugger
                 }.bind(this)
             });
-		}/*,
+		},
+			_onObjectMatched2: function (oEvent) {
+			debugger
+			var twoColumn = this.getView().byId("idFlexibleColumn");
+			twoColumn.setLayout(sap.f.LayoutType.OneColumn);
+			
+		}
+		/*,
 		onBeforeRendering: function () {
 			var alldata = this.getView().getModel("data").getProperty("/allData/");
 			for (var i = 0; i < alldata.length; i++) {
@@ -99,11 +107,29 @@ sap.ui.define([
 		},
 		onHrRejectClose: function () {
 			this.getView().byId("idHrDialog").close();
-			var tNo = this.obj.ticketNo;
-			var nId = this.obj.id;
-			var empObj = this.getView().getModel("data").getProperty("/status/0/" + nId);
-			var alldata = this.getView().getModel("data").getProperty("/allData/");
+			var tNo = this.obj.Ticketno;
+			var nId = this.obj.Eid;
 			var tlRejDec = this.getView().byId("idHrRejDec").getProperty("value");
+			var updObj ={
+					Tlstatus:"TL ACCEPTED",
+			     	Hrstatus:"HR REJECTED",
+			     	Tlstatusicon:"sap-icon://accept",
+			     	Hrstatusicon:"sap-icon://decline",
+			     	Statusdiscription:tlRejDec
+			};
+			var oData = new sap.ui.model.odata.ODataModel("/sap/opu/odata/sap/ZINVENTORY_SRV");
+                oData.update("/zinStatusSet(Eid='"+nId+"',Ticketno='"+tNo+"')",updObj, {
+				success: function (odata) {
+					debugger
+				},
+				error: function (oresponse) {
+					debugger
+					
+				}
+			});
+			/*var empObj = this.getView().getModel("data").getProperty("/status/0/" + nId);
+			var alldata = this.getView().getModel("data").getProperty("/allData/");
+			
 			this.getView().getModel("data").setProperty("/allExtraInfo/0/statusType", "Accept");
 			for (var i = 0; i < empObj.length; i++) {
 				if (empObj[i].ticketNo === tNo) {
@@ -120,7 +146,7 @@ sap.ui.define([
 					this.getView().getModel("data").setProperty("/allData/" + k + "/state", "Error");
 					this.getView().getModel("data").setProperty("/allData/" + k + "/enable2", false);
 				}
-			}
+			}*/
 			MessageToast.show("Issue Has Been Rejected");
 		},
 		onLogout: function () {
@@ -129,7 +155,40 @@ sap.ui.define([
 			this.getView().byId("bell").setVisible(false);
 		},
 		onHrAccept: function () {
-			var tNo = this.obj.ticketNo;
+			var tcNo = this.obj.Ticketno;
+			var id =this.obj.Eid;
+			var updObj ={
+					Tlstatus:"TL ACCEPTED",
+			     	Hrstatus:"HR ACCEPTED",
+			     	Tlstatusicon:"sap-icon://accept",
+			     	Hrstatusicon:"sap-icon://accept"
+			};
+			var updobj1={
+				BUTENABLE:"false",
+				ISSUESTATUS:"HR ACCEPTED",
+				Hrstatus:"AR ACCEPTED"
+			}
+			var oData = new sap.ui.model.odata.ODataModel("/sap/opu/odata/sap/ZINVENTORY_SRV");
+                oData.update("/zinStatusSet(Eid='"+id+"',Ticketno='"+tcNo+"')",updObj, {
+				success: function (odata) {
+					debugger
+				},
+				error: function (oresponse) {
+					debugger
+					
+				}
+			});
+			var oData1 = new sap.ui.model.odata.ODataModel("/sap/opu/odata/sap/ZINVENTORY_SRV");
+                oData1.update("/AdminNotificationSet(Eid='"+id+"',Ticketno='"+tcNo+"')",updobj1, {
+				success: function (odata) {
+					debugger
+				},
+				error: function (oresponse) {
+					debugger
+					
+				}
+			});
+			/*ar tNo = this.obj.ticketNo;
 			var nId = this.obj.id;
 			var empObj = this.getView().getModel("data").getProperty("/status/0/" + nId);
 			var alldata = this.getView().getModel("data").getProperty("/allData/");
@@ -148,7 +207,7 @@ sap.ui.define([
 					this.getView().getModel("data").setProperty("/allData/" + j + "/enable2", false);
 
 				}
-			}
+			}*/
 			MessageToast.show("Issue Has Been Approved");
 		}
 

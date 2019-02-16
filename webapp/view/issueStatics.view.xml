@@ -22,7 +22,7 @@
 	</tnt:ToolHeader>
 	<SplitApp>
 		<detailPages>
-			<chart:ChartContainer id="chartContainer" showFullScreen="true" autoAdjustHeight="true" title="Issue Graph">
+			<chart:ChartContainer id="chartContainer" showFullScreen="true" autoAdjustHeight="true" title="Issue Graph" visible="">
 				<chart:content>
 					<chart:ChartContainerContent icon="sap-icon://line-chart" title="Line Chart">
 						<chart:content>

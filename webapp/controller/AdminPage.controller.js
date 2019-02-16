@@ -2,8 +2,9 @@ sap.ui.define([
 	"sap/ui/core/mvc/Controller",
 	'sap/ui/model/Filter',
 	'sap/ui/model/FilterOperator',
-	'sap/ui/model/json/JSONModel'
-], function (Controller, Filter, FilterOperator, JSONModel) {
+	'sap/ui/model/json/JSONModel',
+	'sap/m/MessageToast'
+], function (Controller, Filter, FilterOperator, JSONModel, MessageToast) {
 	"use strict";
 	return Controller.extend("inventory.Inventory.controller.AdminPage", {
 		onInit: function () {
@@ -14,54 +15,54 @@ sap.ui.define([
 			oRouter.getRoute("AdminPage").attachPatternMatched(this._onObjectMatched, this);
 			var oModel1 = this.getOwnerComponent().getModel();
 			oModel1.read("/EmployeeInfoSet", {
-                success: function (odata) {
-                	 debugger
-                	var equip = odata.results;
-                   /* var model = new JSONModel();
-                    model.setData(euip);
-                    this.getView().setModel(model,"equipment");*/
-                    var jmodel = this.getView().getModel("data");
-			jmodel.setProperty("/equipData", equip);
-                	//**/*this.getView().setModel(odata.results*/*/);*/
-                   
-                }.bind(this),
-                  error: function (oresponse) {
-                    debugger
-                }.bind(this)
-            });
-            oModel1.read("/AdminNotificationSet", {
-                success: function (odata) {
-                	 debugger
-                	var equip1 = odata.results;
-                   /* var model = new JSONModel();
-                    model.setData(euip);
-                    this.getView().setModel(model,"equipment");*/
-                    var jmodel = this.getView().getModel("data");
-			jmodel.setProperty("/issueStatus", equip1);
-                	//**/*this.getView().setModel(odata.results*/*/);*/
-                   
-                }.bind(this),
-                  error: function (oresponse) {
-                    debugger
-                }.bind(this)
-            });
+				success: function (odata) {
+					debugger
+					var equip = odata.results;
+					/* var model = new JSONModel();
+					 model.setData(euip);
+					 this.getView().setModel(model,"equipment");*/
+					var jmodel = this.getView().getModel("data");
+					jmodel.setProperty("/equipData", equip);
+					//**/*this.getView().setModel(odata.results*/*/);*/
+
+				}.bind(this),
+				error: function (oresponse) {
+					debugger
+				}.bind(this)
+			});
+			oModel1.read("/zinStatusSet", {
+				success: function (odata) {
+					debugger
+					var equip1 = odata.results;
+					/* var model = new JSONModel();
+					 model.setData(euip);
+					 this.getView().setModel(model,"equipment");*/
+					var jmodel = this.getView().getModel("data");
+					jmodel.setProperty("/issueStatus", equip1);
+					//**/*this.getView().setModel(odata.results*/*/);*/
+
+				}.bind(this),
+				error: function (oresponse) {
+					debugger
+				}.bind(this)
+			});
 		},
 		_onObjectMatched: function (oEvent) {
 			var oArg = oEvent.getParameters("arguments").arguments.obj;
 			var oModel2 = this.getOwnerComponent().getModel();
-			oModel2.read("/EmployeeInfoSet('"+oArg+"')", {
-                success: function (odata) {
-                	 debugger
-                	var equip = odata;
-                    var model1 = new JSONModel();
-                    model1.setData(equip);
-                    this.getView().setModel(model1,"equipment");
-                }.bind(this),
-                  error: function (oresponse) {
-                    debugger
-                }.bind(this)
-            });
-			
+			oModel2.read("/EmployeeInfoSet('" + oArg + "')", {
+				success: function (odata) {
+					debugger
+					var equip = odata;
+					var model1 = new JSONModel();
+					model1.setData(equip);
+					this.getView().setModel(model1, "equipment");
+				}.bind(this),
+				error: function (oresponse) {
+					debugger
+				}.bind(this)
+			});
+
 			/*var oView = this.getView();
 			oView.setModel(this.getOwnerComponent().getModel("data"));
 			oView.bindElement("/empInfo/" + oArg.arguments.obj);*/
@@ -130,13 +131,13 @@ sap.ui.define([
 			var aFilter = [];
 			var sQuery = this.getView().byId("input1").getValue();
 			if (sQuery) {
-				aFilter.push(new Filter("Eticketno", FilterOperator.Contains, sQuery));
+				aFilter.push(new Filter("Ticketno", FilterOperator.Contains, sQuery));
 			}
 			var oList = this.getView().byId("idIssueDetailsTable");
 			var oBinding = oList.getBinding("items");
 			oBinding.filter(aFilter);
 		},
-		onRegister: function(){
+		onRegister: function () {
 			var oView = this.getView();
 			var oDialog = oView.byId("idSignUpDialog");
 			if (!oDialog) {
@@ -145,8 +146,16 @@ sap.ui.define([
 			}
 			oDialog.open();
 		},
-	    onSubmit: function () {
+		onSubmit: function () {
 			this.getView().byId("idSignUpDialog").close();
+			this.getView().byId("idEmpId").setValue("");
+			this.getView().byId("idEmpName").setValue("");
+			this.getView().byId("idEmpDesig").setValue("");
+			this.getView().byId("idEmail").setValue("");
+			this.getView().byId("idNum").setValue("");
+			this.getView().byId("idPass").setValue("");
+			this.getView().byId("idSysNo").setValue("");
+			this.getView().byId("idDob").setValue("");
 		},
 		onSignup: function () {
 			var empId = this.getView().byId("idEmpId").getValue();
@@ -157,26 +166,39 @@ sap.ui.define([
 			var number = this.getView().byId("idNum").getValue();
 			var sysNo = this.getView().byId("idSysNo").getValue();
 			var DOB = this.getView().byId("idDob").getValue();
-			var oData = new sap.ui.model.odata.ODataModel("/sap/opu/odata/sap/ZINVENTORY_SRV");
-			var obj1 = {
-				"Eid" : empId,
-				"Ename":empName,
-				"Edesig":empDes, 
-				"Epassword":password,
-				"Email":email,
-				"Phoneno":number,
-				"Systemno":sysNo,
-				"Edob":DOB
-			};
-			oData.create("/EmployeeInfoSet",obj1 , {
-                    success:function(odata){
-                        debugger;
-                    },
-                    error:function(oresponse){
-                        debugger;
-                    }
-                })
-          this.getView().byId("idSignUpDialog").close();
+			if (empId == "" || empName == "" || empDes == "" || password == "" || email == "" || number == "" || sysNo == "" || DOB == "") {
+				this.getView().byId("idSignUpDialog").close();
+				MessageToast.show("Enter all the Fields");
+			} else {
+				var oData = new sap.ui.model.odata.ODataModel("/sap/opu/odata/sap/ZINVENTORY_SRV");
+				var obj1 = {
+					"Eid": empId,
+					"Ename": empName,
+					"Edesig": empDes,
+					"Epassword": password,
+					"Email": email,
+					"Phoneno": number,
+					"Systemno": sysNo,
+					"Edob": DOB
+				};
+				oData.create("/EmployeeInfoSet", obj1, {
+					success: function (odata) {
+						debugger;
+					},
+					error: function (oresponse) {
+						debugger;
+					}
+				});
+				this.getView().byId("idSignUpDialog").close();
+			}
+			this.getView().byId("idEmpId").setValue("");
+			this.getView().byId("idEmpName").setValue("");
+			this.getView().byId("idEmpDesig").setValue("");
+			this.getView().byId("idEmail").setValue("");
+			this.getView().byId("idNum").setValue("");
+			this.getView().byId("idPass").setValue("");
+			this.getView().byId("idSysNo").setValue("");
+			this.getView().byId("idDob").setValue("");
 		}
 	});
 

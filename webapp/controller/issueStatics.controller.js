@@ -6,9 +6,23 @@ sap.ui.define([
 	"use strict";
 
 	return Controller.extend("inventory.Inventory.controller.AdminPage", {
-		//	onInit: function() {
-		//
-		//	},
+		onInit: function() {
+	       var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+			oRouter.getRoute("issueStatics").attachPatternMatched(this._onObjectMatched1, this);
+			},
+			_onObjectMatched1: function (oEvent) {
+			debugger
+			if(this.getView().byId("idYear")){
+				this.getView().byId("idYear").setSelectedKey("");	
+			}
+			if(this.getView().byId("idStatus")){
+				this.getView().byId("idStatus").setSelectedKey("");	
+			}
+			if(this.getView().byId("chartContainer")){
+				this.getView().byId("chartContainer").setVisible(false);	
+			}
+			
+		},
 		oChangeYearOrMonth: function (oEvent) {
 			var changeValue = this.getView().byId("idData").getProperty("value");
 			if (changeValue == "Year") {
@@ -33,6 +47,9 @@ sap.ui.define([
 				var status = this.getView().byId("idStatus").getProperty("value");
 			}
 			this.getView().byId("issueFragment").bindData("data>/" + main + "/0/" + status + "/0/" + year);*/
+			if(this.getView().byId("chartContainer")){
+				this.getView().byId("chartContainer").setVisible(true);	
+			}
 			var year = this.getView().byId("idYear").getProperty("value");
 			var status = this.getView().byId("idStatus").getProperty("value");
 			var a = new Filter({
