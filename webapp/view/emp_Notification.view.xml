@@ -61,8 +61,9 @@
 								<footer>
 									<Toolbar>
 										<ToolbarSpacer/>
-										<Button text="Accept" type="Accept" press="onApproved" enabled="{data>/odata/Buttonenable}"/>
-										<Button text="Reject" type="Reject" press="onReject" enabled="{data>/odata/Buttonenable}"/>
+										<Button text="Accept" type="Accept" press="onApproved" enabled="{ parts:[ {path: 'data>/odata/Buttonenable'}], formatter: 'inventory.Inventory.model.button.statusText'}"/>
+										<Button text="Reject" type="Reject" press="onReject" enabled="{ parts:[ {path: 'data>/odata/Buttonenable'}], formatter: 'inventory.Inventory.model.button.statusText'}"/>
+											
 									</Toolbar>
 								</footer>
 							</Page>

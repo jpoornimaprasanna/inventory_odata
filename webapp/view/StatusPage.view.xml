@@ -52,8 +52,8 @@
 												id="idHrStatus"/>
 										</pf:lanes>
 									</pf:ProcessFlow>
-									<Label text="HR Status" visible="{}"/>
-									<Text text="{data>/Stat1/Hrstatus}"/>
+									<Label text="HR Status Description" visible="{}"/>
+									<Text text="{data>/Stat1/Statusdiscription}"/>
 									<Label></Label>
 									<Text text="{}"></Text>
 								</f:content>

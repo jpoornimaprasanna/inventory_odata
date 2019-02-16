@@ -4,10 +4,12 @@ sap.ui.define([
 	"sap/ui/model/Filter",
 	"sap/ui/model/FilterOperator",
 	"sap/m/MessageToast",
-	"sap/ui/core/routing/History"
-], function (Controller, JSONModel, Filter, FilterOperator, MessageToast, History) {
+	"sap/ui/core/routing/History",
+	"inventory/Inventory/model/button"
+], function (Controller, JSONModel, Filter, FilterOperator, MessageToast, History,button) {
 	"use strict";
 	return Controller.extend("inventory.Inventory.controller.emp_Notification", {
+		formatter: button,
 		onInit: function () {
 			/*this.getView().setModel(new JSONModel(), "data");*/
 			this.getView().byId("emptyId").setVisible(true);
@@ -34,11 +36,13 @@ sap.ui.define([
 			oDialog.open();
 		},
 		onTlRejectSubmit: function () {
+				var status = this.getView().byId("idTlRejDec").getValue();
 			var updateStatus = {
                 	Tlstatus:"TL Rejected",
 			     	Hrstatus:"HR Blocked",
 			     	Tlstatusicon:"sap-icon://decline",
-			     	Hrstatusicon:"sap-icon://cancel"
+			     	Hrstatusicon:"sap-icon://cancel",
+			     	Statusdiscription:status
 			     };
 			     var tcNo = this.obj.Ticketno;
 			var id = this.obj.Eid;
@@ -93,7 +97,7 @@ sap.ui.define([
 			var oData = this.getOwnerComponent().getModel();
 			var obj1 ={
 				Eid :id,
-				Eticketno:tcNo,
+				Ticketno:tcNo,
 				Issue:issue,
 				Issuedesc:issueDec,
 				Issuedate:date,
@@ -101,6 +105,7 @@ sap.ui.define([
 				Hrstatus:"HR INPROCESS",
 				ISSUESTATUS:issueStatus,
 			};
+		
 			
 			var updatedObj = {
                 	Tlstatus:"TL ACCEPTED",
@@ -111,6 +116,7 @@ sap.ui.define([
                 var button={
                 Buttonenable : "false"	
                 };
+                
 			oData.create("/AdminNotificationSet",obj1 , {
                     success:function(odata){
                        MessageToast.show("Issue Has Been Approved");
@@ -130,6 +136,20 @@ sap.ui.define([
 				},
 				error: function (oresponse) { }
 			});
+			
+			oData1.refresh();
+			oData.refresh();
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
 		}
 	});
 });
